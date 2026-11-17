@@ -92,15 +92,65 @@ The "Annabelle" shape recreates the sheep from the early-2000s RealPlayer visual
 
 The upgrade runs `topgrade --no-tmux --no-self-update --no-ask-retry --yes --only <steps>` in a process detached from the shell, which keeps going even if the shell restarts (a pacman interrupted midway would leave the system half-upgraded). The output, without colors, is appended to the log (`upgradesLog` in the config, `~/upgrade.log` by default), with a header and the exit code of each run. A shell that restarts during the upgrade picks up tracking it again, and the updates icon spins while it runs (clicking it shows or hides the output). Meanwhile, shutdown and suspend are blocked (`systemd-inhibit`), and an upgrade requested in the middle of a check waits for it to finish. The panel closes when it finishes, with or without failures: topgrade reports the result in a notification, and the drawer shows when the last upgrade failed. Without a terminal, sudo has nowhere to ask for a password: the system step needs passwordless sudo for pacman.
 
-## Installation
+## Dependencies
 
-Works with any Hyprland using a Lua config (`hyprland.lua`), whether your own or one from a dotfiles bundle.
+The package names are Arch Linux's; on other distributions, install the equivalent packages. The System row of the updates module only works on Arch and its derivatives, since it counts with pacman and yay. Tested with Hyprland 0.57.2 and Quickshell 0.3.2.
+
+### Required
+
+| Dependency | Package | What for |
+|---|---|---|
+| Hyprland, with a Lua config (`hyprland.lua`) | `hyprland` | The compositor the shell runs on. |
+| Quickshell | `quickshell` | Runs the shell. |
+| PipeWire, with its PulseAudio server and WirePlumber | `pipewire`, `pipewire-pulse`, `wireplumber` | Volume, microphone, the OSD, the music effects, and Bluetooth audio profiles (through `pactl`). |
+| Material Symbols Rounded | `ttf-material-symbols-variable-git` (AUR) | The icons throughout the shell. |
+
+The Orbitron and Rajdhani fonts come with the repository, and the installer links them.
+
+### Optional
+
+Each one is needed only by the feature next to it.
+
+| Feature | Packages |
+|---|---|
+| Wi-Fi and known networks in the control center | `networkmanager`; `nm-connection-editor` for "Edit" and right-click (`networkSettingsCommand`) |
+| Bluetooth in the control center | `bluez`, with `bluetooth.service` enabled; `blueman` for right-click (`bluetoothSettingsCommand`) |
+| Battery in the bar | `upower` |
+| Power profile in the control center | `power-profiles-daemon`, already running (the shell never starts it) |
+| Brightness and its OSD | `brightnessctl` |
+| Music effects | `cava` |
+| Weather forecast and synced lyrics | `curl`, and internet access |
+| Lock screen (`--hyprlock`) | `hyprlock`; `imagemagick` for the blurred background. The session menu locks with `loginctl lock-session` (`lockCommand`), which only works when something handles that signal, such as `hypridle` with `lock_cmd = pidof hyprlock \|\| hyprlock` |
+| Package updates | `python`, `pacman-contrib` (`checkupdates`), and `topgrade` (AUR); `yay` (AUR) to count the AUR packages. The other managers (cargo, npm, uv…) are only checked when installed |
+| Notification naming the destination after the boot splash | `libnotify` (`notify-send`) |
+| Monospace text (launcher, upgrade output) | `ttf-firacode-nerd` |
+| Dark Qt apps | `qt5ct`, `qt6ct` |
+| Terminal apps in the launcher | one of `kitty`, `foot`, `alacritty`, `ghostty`, `konsole`, or `xterm` (`terminal` in the config) |
+
+Everything above in one go:
 
 ```sh
-sudo pacman -S --needed quickshell qt6-svg qt6-5compat qt5ct qt6ct brightnessctl networkmanager imagemagick cava
-# icons: Material Symbols Rounded (AUR: ttf-material-symbols-variable-git)
-# updates: python, pacman-contrib (checkupdates), and topgrade (AUR)
+sudo pacman -S --needed hyprland quickshell pipewire pipewire-pulse wireplumber \
+    networkmanager nm-connection-editor bluez blueman upower brightnessctl cava curl \
+    hyprlock hypridle imagemagick python pacman-contrib libnotify ttf-firacode-nerd qt5ct qt6ct
+yay -S --needed ttf-material-symbols-variable-git topgrade   # AUR, with yay or another helper
+```
 
+### For development
+
+| Task | Package |
+|---|---|
+| Editing the shaders (`qsb`) | `qt6-shadertools` |
+| Translations (`xgettext`, `msgmerge`, `msgfmt`) | `gettext` |
+| Regenerating the wallpapers (`rsvg-convert`) | `librsvg` |
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the rest of the development setup.
+
+## Installation
+
+Works with any Hyprland using a Lua config (`hyprland.lua`), whether your own or one from a dotfiles bundle. Install the [dependencies](#dependencies) first.
+
+```sh
 ./install.sh                      # links, fonts, Hyprland fragment, dark apps, and config.json
 ./install.sh --entry FILE.lua     # loads the fragment from this file instead of hyprland.lua
 ./install.sh --disable-autostart  # also disables autostart of the bars and daemons the shell replaces
@@ -250,3 +300,11 @@ wallpapers/          earth_origin.png and pegasus_chart.png (3840×2160, the Anc
 ## References
 
 Inspired by r/unixporn posts: Vitreus/pleamar (panels that sprout from the bar), the Quickshell wallpaper picker, ETEA, and a KDE "tuned just right".
+
+## Contributing
+
+Bug reports, ideas, translations, code, and artwork are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to set up a development copy, the project's conventions, and what a pull request needs.
+
+## License
+
+Ancient Shell is released under the [MIT License](LICENSE.txt). The Orbitron and Rajdhani fonts in `quickshell/ancient/assets/fonts/` are third-party works under the SIL Open Font License; their license texts are next to them.

@@ -92,15 +92,65 @@ A forma "Annabelle" recria a ovelha da visualização do RealPlayer do início d
 
 O upgrade roda `topgrade --no-tmux --no-self-update --no-ask-retry --yes --only <passos>` num processo destacado do shell, que continua mesmo que o shell reinicie (um pacman interrompido no meio deixaria o sistema pela metade). A saída, sem cores, é acrescentada ao log (`upgradesLog` no config, por padrão `~/upgrade.log`), com um cabeçalho e o código de saída de cada execução. Um shell que reinicia durante o upgrade volta a acompanhá-lo, e o ícone de atualizações gira enquanto ele roda (o clique mostra ou esconde a saída). Enquanto isso, o desligamento e a suspensão ficam bloqueados (`systemd-inhibit`), e um upgrade pedido no meio de uma verificação espera ela terminar. O painel fecha ao terminar, com ou sem falhas: o topgrade avisa o resultado numa notificação, e a gaveta mostra quando o último upgrade falhou. Sem terminal, o sudo não tem onde pedir senha: o passo do sistema precisa de sudo sem senha para o pacman.
 
-## Instalar
+## Dependências
 
-Funciona em qualquer Hyprland com config em Lua (`hyprland.lua`), seja a sua própria ou a de um pacote de dotfiles.
+Os nomes dos pacotes são os do Arch Linux; em outras distribuições, instale os equivalentes. A linha Sistema do módulo de atualizações só funciona no Arch e derivados, porque conta com pacman e yay. Testado com Hyprland 0.57.2 e Quickshell 0.3.2.
+
+### Obrigatórias
+
+| Dependência | Pacote | Para quê |
+|---|---|---|
+| Hyprland, com config em Lua (`hyprland.lua`) | `hyprland` | O compositor em que o shell roda. |
+| Quickshell | `quickshell` | Roda o shell. |
+| PipeWire, com o servidor PulseAudio e o WirePlumber | `pipewire`, `pipewire-pulse`, `wireplumber` | Volume, microfone, o OSD, os efeitos de música e os perfis de áudio Bluetooth (via `pactl`). |
+| Material Symbols Rounded | `ttf-material-symbols-variable-git` (AUR) | Os ícones do shell inteiro. |
+
+As fontes Orbitron e Rajdhani vêm no repositório, e o instalador cria os links delas.
+
+### Opcionais
+
+Cada uma só é necessária para o recurso ao lado.
+
+| Recurso | Pacotes |
+|---|---|
+| Wi-Fi e redes conhecidas na central de controle | `networkmanager`; `nm-connection-editor` para "Editar" e o clique direito (`networkSettingsCommand`) |
+| Bluetooth na central de controle | `bluez`, com o `bluetooth.service` habilitado; `blueman` para o clique direito (`bluetoothSettingsCommand`) |
+| Bateria na barra | `upower` |
+| Perfil de energia na central de controle | `power-profiles-daemon`, já rodando (o shell nunca o inicia) |
+| Brilho e o OSD dele | `brightnessctl` |
+| Efeitos de música | `cava` |
+| Previsão do tempo e letra sincronizada | `curl` e acesso à internet |
+| Lock screen (`--hyprlock`) | `hyprlock`; `imagemagick` para o fundo desfocado. O menu de sessão bloqueia com `loginctl lock-session` (`lockCommand`), que só funciona quando algo trata esse sinal, como o `hypridle` com `lock_cmd = pidof hyprlock \|\| hyprlock` |
+| Atualizações de pacotes | `python`, `pacman-contrib` (`checkupdates`) e `topgrade` (AUR); `yay` (AUR) para contar os pacotes do AUR. Os outros gerenciadores (cargo, npm, uv…) só são consultados quando estão instalados |
+| Notificação com o destino depois do splash de boot | `libnotify` (`notify-send`) |
+| Texto monoespaçado (launcher, saída do upgrade) | `ttf-firacode-nerd` |
+| Apps Qt escuros | `qt5ct`, `qt6ct` |
+| Apps de terminal no launcher | um entre `kitty`, `foot`, `alacritty`, `ghostty`, `konsole` e `xterm` (`terminal` na config) |
+
+Tudo de uma vez:
 
 ```sh
-sudo pacman -S --needed quickshell qt6-svg qt6-5compat qt5ct qt6ct brightnessctl networkmanager imagemagick cava
-# ícones: Material Symbols Rounded (AUR: ttf-material-symbols-variable-git)
-# atualizações: python, pacman-contrib (checkupdates) e topgrade (AUR)
+sudo pacman -S --needed hyprland quickshell pipewire pipewire-pulse wireplumber \
+    networkmanager nm-connection-editor bluez blueman upower brightnessctl cava curl \
+    hyprlock hypridle imagemagick python pacman-contrib libnotify ttf-firacode-nerd qt5ct qt6ct
+yay -S --needed ttf-material-symbols-variable-git topgrade   # AUR, com o yay ou outro helper
+```
 
+### Para desenvolvimento
+
+| Tarefa | Pacote |
+|---|---|
+| Editar os shaders (`qsb`) | `qt6-shadertools` |
+| Traduções (`xgettext`, `msgmerge`, `msgfmt`) | `gettext` |
+| Gerar os wallpapers de novo (`rsvg-convert`) | `librsvg` |
+
+O resto da preparação para desenvolver está no [CONTRIBUTING.md](CONTRIBUTING.md) (em inglês).
+
+## Instalar
+
+Funciona em qualquer Hyprland com config em Lua (`hyprland.lua`), seja a sua própria ou a de um pacote de dotfiles. Instale as [dependências](#dependências) antes.
+
+```sh
 ./install.sh                      # links, fontes, fragmento do Hyprland, apps escuros e config.json
 ./install.sh --entry ARQUIVO.lua  # carrega o fragmento desse arquivo em vez do hyprland.lua
 ./install.sh --disable-autostart  # também desativa o autostart de barras e daemons que o shell substitui
@@ -250,3 +300,11 @@ wallpapers/          earth_origin.png e pegasus_chart.png (3840×2160, o mapa es
 ## Referências
 
 Inspirado em posts do r/unixporn: Vitreus/pleamar (painéis que brotam da barra), o seletor de wallpapers em Quickshell, ETEA e um KDE "tuned just right".
+
+## Como contribuir
+
+Relatos de bugs, ideias, traduções, código e arte são bem-vindos. O [CONTRIBUTING.md](CONTRIBUTING.md) (em inglês) explica como preparar uma cópia de desenvolvimento, as convenções do projeto e o que um pull request precisa ter.
+
+## Licença
+
+O Ancient Shell é distribuído sob a [licença MIT](LICENSE.txt). As fontes Orbitron e Rajdhani em `quickshell/ancient/assets/fonts/` são obras de terceiros sob a SIL Open Font License; os textos dessas licenças estão ao lado delas.
