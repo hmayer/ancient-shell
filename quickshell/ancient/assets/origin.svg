@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="512 240 546 546">
+  <!-- Earth's point of origin, same outline as wallpapers/make-earth-origin.py -->
+  <g fill="#133849" stroke="#30c6de" stroke-width="16" stroke-linejoin="miter">
+    <circle cx="785" cy="318" r="62"/>
+    <polygon points="785,425 565,775 705,775 685,740 640,740 785,500 930,740 885,740 865,775 1005,775"/>
+  </g>
+</svg>
