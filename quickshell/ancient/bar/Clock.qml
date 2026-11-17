@@ -39,7 +39,8 @@ BarButton {
             anchors.verticalCenter: parent.verticalCenter
             size: 14
             color: Theme.textDim
-            text: Config.locale.toString(clock.date, "ddd dd MMM").toUpperCase().replace(/\./g, "")
+            // i18n: Qt date format (QLocale::toString): weekday, month, day
+            text: Config.locale.toString(clock.date, I18n.tr("ddd MMM dd")).toUpperCase().replace(/\./g, "")
         }
     }
 }

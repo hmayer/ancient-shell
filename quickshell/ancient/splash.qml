@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import qs.services
 import qs.splash
 import qs.theme
 
@@ -26,29 +27,30 @@ ShellRoot {
     readonly property int giveUpAfter: 90   // seconds
 
     readonly property var status: {
-        if (failed) return { text: "FALHA NA DISCAGEM", color: Theme.dome };
-        if (opened) return { text: "BURACO DE MINHOCA ESTABELECIDO", color: Theme.cyanBright };
-        if (locked) return { text: "CHEVRON 7 TRAVADO", color: Theme.amber };
-        if (encoded === 0) return { text: "INICIANDO DISCAGEM", color: Theme.textDim };
-        if (encoded === 6 && !shellReady) return { text: "CHEVRON 7 · AGUARDANDO", color: Theme.amber };
-        return { text: "CHEVRON " + encoded + " CODIFICADO", color: Theme.cyan };
+        if (failed) return { text: I18n.tr("DIALING FAILED"), color: Theme.dome };
+        if (opened) return { text: I18n.tr("WORMHOLE ESTABLISHED"), color: Theme.cyanBright };
+        if (locked) return { text: I18n.tr("CHEVRON 7 LOCKED"), color: Theme.amber };
+        if (encoded === 0) return { text: I18n.tr("INITIATING DIALING"), color: Theme.textDim };
+        if (encoded === 6 && !shellReady) return { text: I18n.tr("CHEVRON 7 · WAITING"), color: Theme.amber };
+        return { text: I18n.tr("CHEVRON %1 ENCODED", encoded), color: Theme.cyan };
     }
 
-    // Where the wormhole connects, drawn when the splash starts
+    // Where the wormhole connects, drawn when the splash starts. Names that
+    // languages spell differently go through I18n.
     readonly property var destinations: [
-        { name: "Abydos", note: "O mundo deserto onde tudo começou." },
-        { name: "Chulak", note: "Mundo natal de Teal'c." },
-        { name: "Dakara", note: "O templo sagrado dos Jaffa." },
-        { name: "Cimmeria", note: "Protegido pelo Martelo de Thor." },
-        { name: "Tollana", note: "Lar dos Tollan." },
-        { name: "Langara", note: "Kelowna e a sua naquadria." },
-        { name: "Heliópolis", note: "A sala de reunião das quatro raças." },
-        { name: "Kheb", note: "Onde Oma Desala ensinava a ascensão." },
-        { name: "Edora", note: "Cuidado com a chuva de meteoros." },
-        { name: "Argos", note: "Os nanitas aceleram o envelhecimento: não demore." },
-        { name: "Netu", note: "A lua-prisão de Sokar." },
-        { name: "P3X-888", note: "Mundo natal dos Unas e berço dos Goa'uld." },
-        { name: "Atlântida", note: "A cidade dos Antigos, na galáxia de Pegasus." }
+        { name: "Abydos", note: I18n.tr("The desert world where it all began.") },
+        { name: "Chulak", note: I18n.tr("Teal'c's homeworld.") },
+        { name: "Dakara", note: I18n.tr("The sacred temple of the Jaffa.") },
+        { name: "Cimmeria", note: I18n.tr("Protected by Thor's Hammer.") },
+        { name: "Tollana", note: I18n.tr("Home of the Tollan.") },
+        { name: "Langara", note: I18n.tr("Kelowna and its naquadria.") },
+        { name: I18n.tr("Heliopolis"), note: I18n.tr("The meeting hall of the four races.") },
+        { name: "Kheb", note: I18n.tr("Where Oma Desala taught ascension.") },
+        { name: "Edora", note: I18n.tr("Beware of the meteor shower.") },
+        { name: "Argos", note: I18n.tr("The nanites speed up aging: do not linger.") },
+        { name: "Netu", note: I18n.tr("Sokar's prison moon.") },
+        { name: "P3X-888", note: I18n.tr("Homeworld of the Unas and cradle of the Goa'uld.") },
+        { name: I18n.tr("Atlantis"), note: I18n.tr("The city of the Ancients, in the Pegasus galaxy.") }
     ]
     readonly property var destination: destinations[Math.floor(Math.random() * destinations.length)]
 
@@ -60,10 +62,10 @@ ShellRoot {
         if (announced || !shellReady || failed) return;
         announced = true;
         Quickshell.execDetached(["notify-send",
-            "-a", "Comando Stargate",
+            "-a", I18n.tr("Stargate Command"),
             "-h", "string:image-path:" + Quickshell.shellPath("assets/origin.svg"),
-            "Buraco de minhoca estabelecido",
-            "Destino: " + destination.name + " · " + destination.note]);
+            I18n.tr("Wormhole established"),
+            I18n.tr("Destination: %1 · %2", destination.name, destination.note)]);
     }
 
     function leave() {

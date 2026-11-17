@@ -84,7 +84,7 @@ PanelWindow {
                 size: 13
                 font.letterSpacing: 2.5
                 color: Theme.cyan
-                text: "ENDEREÇO VISUAL"
+                text: I18n.tr("VISUAL ADDRESS")
             }
             Label {
                 anchors.verticalCenter: parent.verticalCenter
@@ -100,7 +100,7 @@ PanelWindow {
             y: 26
             spacing: 18
             Repeater {
-                model: [["← →", "navegar"], ["Enter", "aplicar"], ["R", "aleatório"], ["Esc", "fechar"]]
+                model: [["← →", I18n.tr("navigate")], ["Enter", I18n.tr("apply")], ["R", I18n.tr("random")], ["Esc", I18n.tr("close")]]
                 Row {
                     required property var modelData
                     spacing: 6

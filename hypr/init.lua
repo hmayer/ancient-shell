@@ -2,7 +2,8 @@
 -- Ancient Shell: Hyprland side
 -- Load it last, after your own key bindings, with:
 --     require("ancient-shell/init")
--- (install.sh links this folder to ~/.config/hypr/ancient-shell)
+-- (install.sh links this folder to $XDG_CONFIG_HOME/hypr/ancient-shell and adds
+-- that line to hyprland.lua, or to the file given with --entry)
 -- -----------------------------------------------------
 
 local palette = require("ancient-shell/palette")
@@ -114,7 +115,7 @@ hl.window_rule({ match = { class = NM_WINDOWS }, float = true })
 hl.window_rule({ match = { class = NM_WINDOWS }, center = true })
 
 -- -----------------------------------------------------
--- Key bindings (replace the ML4W / rofi / waypaper / wlogout ones)
+-- Key bindings (replace whatever the config had bound to these keys)
 -- -----------------------------------------------------
 local mainMod = "SUPER"
 

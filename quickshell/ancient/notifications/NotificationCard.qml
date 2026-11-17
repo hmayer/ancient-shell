@@ -83,7 +83,7 @@ MouseArea {
                 size: 11
                 font.letterSpacing: 1.4
                 color: root.wrapper.critical ? Theme.dome : Theme.amber
-                text: (root.wrapper.appName || "Sistema").toUpperCase()
+                text: (root.wrapper.appName || I18n.tr("System")).toUpperCase()
                 width: Math.min(implicitWidth, parent.width - when.width - 8)
             }
             Label {

@@ -25,8 +25,10 @@ Singleton {
     }
 
     // Run a command through Hyprland, so it gets the session's environment
-    // (the shell's own may differ, e.g. the GPU it renders on)
+    // (the shell's own may differ, e.g. the GPU it renders on). An empty
+    // command (an action turned off in the config) does nothing.
     function exec(cmd) {
+        if (!cmd) return;
         if (lua) {
             // A Lua long string takes the command as is
             let eq = "=";

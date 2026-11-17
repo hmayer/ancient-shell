@@ -21,7 +21,7 @@ Column {
         SectionTitle {
             anchors.verticalCenter: parent.verticalCenter
             width: parent.width - trackName.width - backBtn.width - 24
-            text: "Efeitos de música"
+            text: I18n.tr("Music effects")
         }
         Label {
             id: trackName
@@ -64,7 +64,7 @@ Column {
 
     // ── Desktop visualizer ───────────────────────────
     SwitchRow {
-        title: "Visualizador na área de trabalho"
+        title: I18n.tr("Desktop visualizer")
         checked: root.opts.visualizer
         onToggled: c => root.opts.visualizer = c
     }
@@ -76,11 +76,11 @@ Column {
         enabled: root.opts.visualizer
         Repeater {
             model: [
-                ["bars", "graphic_eq", "Barras"],
-                ["wave", "airwave", "Onda"],
-                ["mirror", "align_vertical_center", "Espelho"],
-                ["ring", "donut_large", "Anel"],
-                ["halo", "adjust", "Halo"],
+                ["bars", "graphic_eq", I18n.tr("Bars")],
+                ["wave", "airwave", I18n.tr("Wave")],
+                ["mirror", "align_vertical_center", I18n.tr("Mirror")],
+                ["ring", "donut_large", I18n.tr("Ring")],
+                ["halo", "adjust", I18n.tr("Halo")],
                 ["sheep", "pets", "Annabelle"]
             ]
             ModeKey {
@@ -96,7 +96,7 @@ Column {
         ModeKey {
             width: (parent.width - 16) / 3
             icon: "auto_awesome"
-            title: "Partículas"
+            title: I18n.tr("Particles")
             selected: root.opts.particles
             selectedColor: Theme.cyan
             onClicked: root.opts.particles = !root.opts.particles
@@ -107,12 +107,12 @@ Column {
 
     // ── Lyrics ───────────────────────────────────────
     SwitchRow {
-        title: "Letra na área de trabalho"
+        title: I18n.tr("Desktop lyrics")
         subtitle: !root.opts.lyrics ? "" : ({
-            loading: "Buscando a letra…",
-            none: "Sem letra sincronizada para esta faixa",
-            error: "LRCLIB fora de alcance",
-            ok: "Letra sincronizada do LRCLIB"
+            loading: I18n.tr("Fetching lyrics…"),
+            none: I18n.tr("No synced lyrics for this track"),
+            error: I18n.tr("LRCLIB unreachable"),
+            ok: I18n.tr("Synced lyrics from LRCLIB")
         })[Lyrics.status] ?? ""
         checked: root.opts.lyrics
         onToggled: c => root.opts.lyrics = c
@@ -122,7 +122,7 @@ Column {
 
     // ── Wallpaper effects ────────────────────────────
     SwitchRow {
-        title: "Efeitos no wallpaper"
+        title: I18n.tr("Wallpaper effects")
         checked: root.opts.wallpaperFx
         onToggled: c => root.opts.wallpaperFx = c
     }
@@ -134,10 +134,10 @@ Column {
         enabled: root.opts.wallpaperFx
         Repeater {
             model: [
-                ["glow", "flare", "Brilho"],
-                ["blur", "blur_on", "Desfoque"],
-                ["zoom", "zoom_out_map", "Zoom"],
-                ["shake", "vibration", "Tremor"]
+                ["glow", "flare", I18n.tr("Glow")],
+                ["blur", "blur_on", I18n.tr("Blur")],
+                ["zoom", "zoom_out_map", I18n.tr("Zoom")],
+                ["shake", "vibration", I18n.tr("Shake")]
             ]
             QuickToggle {
                 required property var modelData
@@ -171,7 +171,7 @@ Column {
             anchors.verticalCenter: parent.verticalCenter
             spacing: 10
             MIcon { text: "wallpaper"; size: 20; color: Theme.cyan; anchors.verticalCenter: parent.verticalCenter }
-            Label { text: "Personalizar área de trabalho"; size: 15; color: Theme.text; anchors.verticalCenter: parent.verticalCenter }
+            Label { text: I18n.tr("Customize desktop"); size: 15; color: Theme.text; anchors.verticalCenter: parent.verticalCenter }
         }
         MIcon {
             anchors.right: parent.right

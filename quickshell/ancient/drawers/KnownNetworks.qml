@@ -38,22 +38,23 @@ Column {
         SectionTitle {
             width: parent.width - more.width - 10
             color: Theme.cyan
-            text: "Redes conhecidas" + (root.networks.length > 0 ? " · " + root.networks.length : "")
+            text: root.networks.length > 0 ? I18n.tr("Known networks · %1", root.networks.length) : I18n.tr("Known networks")
         }
         MouseArea {
             id: more
+            visible: Config.networkSettingsCommand !== ""
             anchors.right: parent.right
             width: moreLabel.implicitWidth + 4
             height: 18
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
-            onClicked: Hypr.exec("nm-connection-editor")
+            onClicked: Hypr.exec(Config.networkSettingsCommand)
             Label {
                 id: moreLabel
                 anchors.centerIn: parent
                 size: 13
                 color: parent.containsMouse ? Theme.cyan : Theme.textDim
-                text: "Editar"
+                text: I18n.tr("Edit")
             }
         }
     }
@@ -64,8 +65,8 @@ Column {
         horizontalAlignment: Text.AlignHCenter
         size: 13
         color: Theme.textMute
-        text: !Networking.wifiEnabled ? "Wi-Fi desligado"
-            : "Nenhuma rede conhecida no alcance"
+        text: !Networking.wifiEnabled ? I18n.tr("Wi-Fi off")
+            : I18n.tr("No known networks in range")
     }
 
     ListView {
@@ -105,12 +106,12 @@ Column {
                 target: row.modelData
                 function onConnectionFailed(reason) {
                     row.failure = ({
-                        [ConnectionFailReason.NoSecrets]: "sem senha salva",
-                        [ConnectionFailReason.WifiAuthTimeout]: "tempo esgotado",
-                        [ConnectionFailReason.WifiNetworkLost]: "rede perdida",
-                        [ConnectionFailReason.WifiClientFailed]: "falha no Wi-Fi",
-                        [ConnectionFailReason.WifiClientDisconnected]: "desconectado"
-                    })[reason] ?? "erro desconhecido";
+                        [ConnectionFailReason.NoSecrets]: I18n.tr("no saved password"),
+                        [ConnectionFailReason.WifiAuthTimeout]: I18n.tr("timed out"),
+                        [ConnectionFailReason.WifiNetworkLost]: I18n.tr("network lost"),
+                        [ConnectionFailReason.WifiClientFailed]: I18n.tr("Wi-Fi failure"),
+                        [ConnectionFailReason.WifiClientDisconnected]: I18n.tr("disconnected")
+                    })[reason] ?? I18n.tr("unknown error");
                     failTimer.restart();
                 }
             }
@@ -179,11 +180,11 @@ Column {
                     : row.busy ? Theme.amber
                     : row.modelData.connected ? Theme.cyan
                     : row.containsMouse ? Theme.text : Theme.textMute
-                text: row.failure !== "" ? "Falhou · " + row.failure
-                    : row.modelData.state === ConnectionState.Disconnecting ? "Desconectando…"
-                    : row.busy ? "Conectando…"
-                    : row.modelData.connected ? (row.containsMouse ? "Desconectar" : "Conectada")
-                    : row.containsMouse ? "Conectar" : Math.round(row.strength * 100) + "%"
+                text: row.failure !== "" ? I18n.tr("Failed · %1", row.failure)
+                    : row.modelData.state === ConnectionState.Disconnecting ? I18n.tr("Disconnecting…")
+                    : row.busy ? I18n.tr("Connecting…")
+                    : row.modelData.connected ? (row.containsMouse ? I18n.tr("Disconnect") : I18n.trc("network", "Connected"))
+                    : row.containsMouse ? I18n.tr("Connect") : Math.round(row.strength * 100) + "%"
 
                 SequentialAnimation on opacity {
                     running: row.busy

@@ -22,9 +22,9 @@ Singleton {
     property bool watching: false     // follow card changes (drawer open)
 
     readonly property var modeInfo: ({
-        a2dp: { label: "Música", hint: "A2DP" },
+        a2dp: { label: I18n.tr("Music"), hint: "A2DP" },
         bap: { label: "LE Audio", hint: "BAP" },
-        hfp: { label: "Chamada", hint: "HFP" }
+        hfp: { label: I18n.tr("Call"), hint: "HFP" }
     })
 
     // A refresh asked for while a read runs is redone after it, so a read that
@@ -63,7 +63,7 @@ Singleton {
             for (const [name, p] of entries) {
                 const id = modeOf(name);
                 const m = (p.description ?? "").match(/codec ([^),]+)/i);
-                const codec = m ? m[1].trim() : "Auto";
+                const codec = m ? m[1].trim() : I18n.tr("Auto");
                 if (!modes[id]) modes[id] = { id, label: modeInfo[id].label, hint: modeInfo[id].hint, profiles: [] };
                 const same = modes[id].profiles.findIndex(x => x.codec === codec);
                 // The base profile ("a2dp-sink") often repeats a codec profile;

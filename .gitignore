@@ -1,3 +1,4 @@
 .test-link
 *.bak.*
 .omc/
+__pycache__/

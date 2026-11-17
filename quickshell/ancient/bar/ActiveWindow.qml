@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell.Hyprland
+import qs.services
 import qs.theme
 import qs.widgets
 
@@ -18,7 +19,7 @@ Item {
     Label {
         id: cls
         anchors.verticalCenter: parent.verticalCenter
-        text: root.appClass !== "" ? root.appClass.split(".").pop().toUpperCase() : "DESKTOP"
+        text: root.appClass !== "" ? root.appClass.split(".").pop().toUpperCase() : I18n.tr("DESKTOP")
         size: 12
         font.letterSpacing: 1.5
         color: Theme.amber

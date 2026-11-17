@@ -6,20 +6,20 @@ import Quickshell.Io
 
 // Pending package upgrades, counted per package manager by
 // scripts/upgrades.py, and the topgrade run that applies them. The run goes
-// on in the background if the shell restarts (its output is appended to
-// ~/upgrade.log), and the shell picks it up again when it starts.
+// on in the background if the shell restarts (its output is appended to the
+// log in Config.upgradesLog), and the shell picks it up again when it starts.
 Singleton {
     id: root
 
     // The rows of the table, in order; `id` is the name scripts/upgrades.py knows
     readonly property var managers: [
-        { id: "system", name: "Sistema" },
+        { id: "system", name: I18n.tr("System") },
         { id: "omz", name: "Oh My Zsh" },
         { id: "cargo", name: "Rust" },
         { id: "vscode", name: "VS Code Extensions" },
         { id: "nvim", name: "NeoVim" },
         { id: "node", name: "Node" },
-        { id: "docker", name: "Imagens docker" },
+        { id: "docker", name: I18n.tr("Docker images") },
         { id: "composer", name: "PHP Composer" },
         { id: "github", name: "GitHub" },
         { id: "claude", name: "Claude Code" },
@@ -47,7 +47,11 @@ Singleton {
     readonly property int maxLines: 4000
 
     readonly property string script: Quickshell.shellPath("scripts/upgrades.py")
-    readonly property var env: ({ ANCIENT_NODE_BIN: Config.upgradesNodeBin })
+    readonly property var env: ({
+        ANCIENT_NODE_BIN: Config.upgradesNodeBin,
+        ANCIENT_UPGRADE_LOG: Config.upgradesLog,
+        ANCIENT_EXTRA_PATH: Config.upgradesPath.join(":")
+    })
 
     function check() {
         if (checking || active) return;
@@ -66,7 +70,8 @@ Singleton {
         if (checking) {
             // The check's git fetches and dry runs would race topgrade's steps
             queued = true;
-            lines.append({ line: "Aguardando a verificação terminar…" });
+            // i18n: shown in the upgrade console while a check is still running
+            lines.append({ line: I18n.tr("Waiting for the check to finish…") });
         } else {
             _start();
         }

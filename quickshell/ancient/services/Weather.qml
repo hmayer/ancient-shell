@@ -37,7 +37,7 @@ Singleton {
         searchStatus = "loading";
         results = [];
         finder.command = ["curl", "-sf", "-m", "10", "-G", "https://geocoding-api.open-meteo.com/v1/search",
-            "--data-urlencode", "name=" + text, "-d", "count=6", "-d", "language=pt"];
+            "--data-urlencode", "name=" + text, "-d", "count=6", "-d", "language=" + I18n.lang2];
         finder.running = true;
     }
 
@@ -93,14 +93,14 @@ Singleton {
 
     function describe(code) {
         return ({
-            0: "Céu limpo", 1: "Quase limpo", 2: "Parcialmente nublado", 3: "Nublado",
-            45: "Neblina", 48: "Neblina com geada",
-            51: "Garoa fraca", 53: "Garoa", 55: "Garoa forte", 56: "Garoa congelante", 57: "Garoa congelante",
-            61: "Chuva fraca", 63: "Chuva", 65: "Chuva forte", 66: "Chuva congelante", 67: "Chuva congelante",
-            71: "Neve fraca", 73: "Neve", 75: "Neve forte", 77: "Grãos de neve",
-            80: "Pancadas de chuva", 81: "Pancadas de chuva", 82: "Pancadas fortes",
-            85: "Pancadas de neve", 86: "Pancadas de neve",
-            95: "Tempestade", 96: "Tempestade com granizo", 99: "Tempestade com granizo"
+            0: I18n.tr("Clear sky"), 1: I18n.tr("Mainly clear"), 2: I18n.tr("Partly cloudy"), 3: I18n.tr("Overcast"),
+            45: I18n.tr("Fog"), 48: I18n.tr("Rime fog"),
+            51: I18n.tr("Light drizzle"), 53: I18n.tr("Drizzle"), 55: I18n.tr("Dense drizzle"), 56: I18n.tr("Freezing drizzle"), 57: I18n.tr("Freezing drizzle"),
+            61: I18n.tr("Light rain"), 63: I18n.tr("Rain"), 65: I18n.tr("Heavy rain"), 66: I18n.tr("Freezing rain"), 67: I18n.tr("Freezing rain"),
+            71: I18n.tr("Light snow"), 73: I18n.tr("Snow"), 75: I18n.tr("Heavy snow"), 77: I18n.tr("Snow grains"),
+            80: I18n.tr("Rain showers"), 81: I18n.tr("Rain showers"), 82: I18n.tr("Heavy showers"),
+            85: I18n.tr("Snow showers"), 86: I18n.tr("Snow showers"),
+            95: I18n.tr("Thunderstorm"), 96: I18n.tr("Thunderstorm with hail"), 99: I18n.tr("Thunderstorm with hail")
         })[code] ?? "—";
     }
 
@@ -115,7 +115,10 @@ Singleton {
 
     // Where the wind comes from, on a 16-point rose
     function compass(deg) {
-        const names = ["N", "NNE", "NE", "ENE", "L", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"];
+        // i18n: the 16 compass points, space-separated, from north clockwise
+        let names = I18n.tr("N NNE NE ENE E ESE SE SSE S SSW SW WSW W WNW NW NNW").split(/\s+/).filter(Boolean);
+        // A translation with another number of points would shift every direction
+        if (names.length !== 16) names = "N NNE NE ENE E ESE SE SSE S SSW SW WSW W WNW NW NNW".split(" ");
         return names[Math.round(((deg % 360) + 360) % 360 / 22.5) % 16];
     }
 

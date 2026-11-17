@@ -16,13 +16,16 @@ Drawer {
 
     property int selected: -1
 
+    // An action whose command is empty in the config is left out
     readonly property var actions: [
-        { icon: "lock", label: "Bloquear", run: () => Hypr.exec(Config.lockCommand) },
-        { icon: "bedtime", label: "Suspender", run: () => Hypr.exec("systemctl suspend") },
-        { icon: "logout", label: "Sair", run: () => Hypr.exit() },
-        { icon: "restart_alt", label: "Reiniciar", run: () => Hypr.exec("systemctl reboot") },
-        { icon: "power_settings_new", label: "Desligar", run: () => Hypr.exec("systemctl poweroff") }
-    ]
+        { icon: "lock", label: I18n.tr("Lock"), cmd: Config.lockCommand },
+        { icon: "bedtime", label: I18n.tr("Suspend"), cmd: Config.suspendCommand },
+        { icon: "logout", label: I18n.tr("Log out"), run: () => Hypr.exit() },
+        { icon: "restart_alt", label: I18n.tr("Restart"), cmd: Config.rebootCommand },
+        { icon: "power_settings_new", label: I18n.tr("Shut down"), cmd: Config.poweroffCommand }
+    ].filter(a => a.run || a.cmd).map(a => a.run ? a : Object.assign(a, { run: () => Hypr.exec(a.cmd) }))
+    // A config reload can change which action an index is
+    onActionsChanged: selected = -1
 
     function commit() {
         if (selected < 0) return;
@@ -46,7 +49,7 @@ Drawer {
         SectionTitle {
             id: title
             width: parent.width
-            text: root.selected >= 0 ? root.actions[root.selected].label + " — confirme no domo" : "Sessão"
+            text: root.selected >= 0 ? I18n.tr("%1 — confirm on the dome", root.actions[root.selected].label) : I18n.tr("Session")
             color: root.selected >= 0 ? Theme.dome : Theme.amber
         }
 
@@ -133,7 +136,7 @@ Drawer {
                 size: 11
                 font.letterSpacing: 2.5
                 color: dome.enabled ? "#1a0905" : Theme.textMute
-                text: "CONFIRMAR"
+                text: I18n.tr("CONFIRM")
             }
         }
     }

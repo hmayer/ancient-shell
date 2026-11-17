@@ -135,14 +135,15 @@ PanelWindow {
                     Label {
                         size: 14
                         color: Theme.textDim
-                        text: "Sensação " + root.round(root.now?.feels)
+                        // i18n: apparent ("feels like") temperature, %1 is the value
+                        text: I18n.tr("Feels like %1", root.round(root.now?.feels))
                     }
                     Label {
                         width: parent.width
                         size: 14
                         color: Theme.cyan
                         text: root.now ? Weather.describe(root.now.code)
-                            : Weather.status === "error" ? "Sem conexão" : "Consultando…"
+                            : Weather.status === "error" ? I18n.tr("Offline") : I18n.tr("Fetching…")
                     }
                 }
                 IconButton {
@@ -202,7 +203,9 @@ PanelWindow {
                     rowSpacing: 5
                     columnSpacing: 0
                     readonly property var widths: [50, 34, 46, 50, 52, width - 232]
-                    readonly property var heads: ["Hora", "", "Temp", "Sens.", "Chuva", "Vento"]
+                    // i18n: column heads of the hourly table, keep them short; "Feels" is the apparent temperature
+                    readonly property var heads: [I18n.trc("hourly table", "Time"), "", I18n.trc("hourly table", "Temp"),
+                        I18n.trc("hourly table", "Feels"), I18n.trc("hourly table", "Rain"), I18n.trc("hourly table", "Wind")]
 
                     Repeater {
                         model: 6
@@ -268,8 +271,8 @@ PanelWindow {
                     horizontalAlignment: Text.AlignRight
                     size: 11
                     color: Theme.textMute
-                    text: (Weather.status === "error" ? "Sem conexão · dados de " : "Open-Meteo · ")
-                        + Qt.formatTime(Weather.updated, "HH:mm")
+                    text: Weather.status === "error" ? I18n.tr("Offline · data from %1", Qt.formatTime(Weather.updated, "HH:mm"))
+                        : "Open-Meteo · " + Qt.formatTime(Weather.updated, "HH:mm")
                 }
             }
 
@@ -285,7 +288,7 @@ PanelWindow {
                     SectionTitle {
                         anchors.verticalCenter: parent.verticalCenter
                         width: parent.width - 34
-                        text: "Cidade"
+                        text: I18n.tr("City")
                     }
                     IconButton {
                         anchors.right: parent.right
@@ -333,7 +336,7 @@ PanelWindow {
                             anchors.verticalCenter: parent.verticalCenter
                             size: 15
                             color: Theme.textMute
-                            text: "Digite a cidade e tecle Enter"
+                            text: I18n.tr("Type the city and press Enter")
                         }
                     }
                     MouseArea {
@@ -348,7 +351,7 @@ PanelWindow {
                     width: parent.width
                     size: 13
                     color: Theme.textMute
-                    text: ({ loading: "Procurando…", none: "Nenhuma cidade com esse nome", error: "Sem conexão com o Open-Meteo" })[Weather.searchStatus] ?? ""
+                    text: ({ loading: I18n.tr("Searching…"), none: I18n.tr("No city with that name"), error: I18n.tr("No connection to Open-Meteo") })[Weather.searchStatus] ?? ""
                 }
 
                 Column {
@@ -401,7 +404,7 @@ PanelWindow {
                         anchors.verticalCenter: parent.verticalCenter
                         size: 13
                         color: Theme.textMute
-                        text: "Monitor"
+                        text: I18n.tr("Monitor")
                     }
                     Repeater {
                         model: Quickshell.screens

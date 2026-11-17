@@ -9,15 +9,16 @@ import Quickshell.Io
 Singleton {
     id: root
 
-    readonly property string current: state.current !== "" ? state.current : Config.defaultWallpaper
+    // The picked one, else the configured default, else the first image in the folder
+    readonly property string current: state.current !== "" ? state.current
+        : Config.defaultWallpaper !== "" ? Config.defaultWallpaper
+        : folder.count > 0 ? folder.get(0, "filePath") : ""
     readonly property alias model: folder
     readonly property string hook: Quickshell.shellPath("scripts/wallpaper-hook.sh")
 
     function set(path) {
         if (!path || path === state.current) return;
         state.current = path;
-        hookProc.command = [hook, path];
-        hookProc.running = true;
     }
 
     function random() {
@@ -27,6 +28,21 @@ Singleton {
         while (folder.get(i, "filePath") === current);
         set(folder.get(i, "filePath"));
     }
+
+    // The hook keeps the lock screen background in step; it does nothing when
+    // that wallpaper's background is already there, so it also runs on start
+    property bool _hookAgain: false
+    function runHook() {
+        if (current === "") return;
+        if (hookProc.running) {
+            _hookAgain = true;   // once this run ends, for the newest wallpaper
+            return;
+        }
+        hookProc.command = [hook, current];
+        hookProc.running = true;
+    }
+    onCurrentChanged: runHook()
+    Component.onCompleted: runHook()
 
     FolderListModel {
         id: folder
@@ -54,6 +70,10 @@ Singleton {
         id: hookProc
         onExited: (code, status) => {
             if (code !== 0) console.warn("wallpaper hook exited with", code);
+            if (root._hookAgain) {
+                root._hookAgain = false;
+                Qt.callLater(root.runHook);
+            }
         }
     }
 }

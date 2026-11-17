@@ -91,7 +91,7 @@ Singleton {
 
     Process {
         id: diskProc
-        command: ["df", "-B1", "--output=used,size", "/"]
+        command: ["df", "-B1", "--output=used,size", Config.diskPath]
         stdout: StdioCollector {
             onStreamFinished: {
                 const l = text.trim().split("\n");

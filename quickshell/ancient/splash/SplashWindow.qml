@@ -4,6 +4,7 @@ import QtQuick.Shapes
 import Quickshell
 import Quickshell.Wayland
 import qs.launcher
+import qs.services
 import qs.theme
 import qs.widgets
 
@@ -107,7 +108,7 @@ PanelWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 size: 13
                 color: Theme.textMute
-                text: "SGC · " + (Quickshell.env("HOSTNAME") || "TERRA").toUpperCase()
+                text: I18n.tr("SGC · %1", (Quickshell.env("HOSTNAME") || I18n.tr("EARTH")).toUpperCase())
             }
         }
 
@@ -276,8 +277,8 @@ PanelWindow {
             size: 10
             font.letterSpacing: 2.4
             color: win.ctl.opened ? Theme.cyanBright : Theme.textMute
-            text: (win.ctl.opened ? "DESTINO: " + win.ctl.destination.name.toUpperCase()
-                    : win.ctl.shellReady ? "SHELL CARREGADO" : "CARREGANDO O SHELL")
+            text: (win.ctl.opened ? I18n.tr("DESTINATION: %1", win.ctl.destination.name.toUpperCase())
+                    : win.ctl.shellReady ? I18n.tr("SHELL LOADED") : I18n.tr("LOADING THE SHELL"))
                 + "  ·  T+" + String(Math.floor(win.ctl.elapsed / 60)).padStart(2, "0")
                 + ":" + String(win.ctl.elapsed % 60).padStart(2, "0")
         }

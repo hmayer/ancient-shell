@@ -1,183 +1,252 @@
 # Ancient Shell
 
-Desktop shell em [Quickshell](https://quickshell.org) para Hyprland, no visual dos painéis da tecnologia anciã de Stargate: pedra carvão, luz ciano dos glifos e o âmbar/bronze dos consoles de Atlântida.
+**English** | [Português (Brasil)](README.pt_BR.md)
 
-Ele substitui waybar, swaync, hyprpaper, waypaper, rofi e wlogout.
+A [Quickshell](https://quickshell.org) desktop shell for Hyprland, styled after the Ancient technology panels from Stargate: charcoal stone, cyan glyph light, and the amber/bronze of the Atlantis consoles.
 
-## O que tem
+It replaces waybar, swaync, hyprpaper, waypaper, rofi, and wlogout.
 
-| Peça | Atalho | Notas |
+## What's included
+
+| Piece | Shortcut | Notes |
 |---|---|---|
-| Splash de boot | — | Ao entrar na sessão, o Stargate disca enquanto o shell carrega. Quando o shell responde, o 7º chevron trava, o buraco de minhoca abre e a tela mergulha nele até o desktop. Ao conectar, sorteia o planeta de destino (Abydos, Chulak, Dakara, Atlântida…), mostra o nome na tela e manda uma notificação do sistema. Um clique pula a animação. Se o shell não responder em 90 s, mostra "FALHA NA DISCAGEM" e sai. |
-| Barra | — | Número do workspace ativo (role o mouse sobre ele para trocar), janela ativa, o relógio, a mídia, a bandeja, as atualizações de pacotes e o status. |
-| Dashboard | `SUPER+A` ou clique no relógio | Relógio, calendário, uptime/memória/disco e medidores em anel (CPU, MEM, TEMP, DISCO). |
-| Player de mídia | clique no título da música na barra | Capa, faixa, progresso e controles do player MPRIS ativo. Na barra, o clique direito dá play/pause e o do meio pula a faixa. O botão "Efeitos" vira o player para os efeitos de música. |
-| Efeitos de música | "Efeitos" no player | Enquanto o player toca, a área de trabalho reage à música, por baixo das janelas. Visualizador em seis formas (barras, onda, espelho, anel, halo com a capa do álbum, Annabelle) e partículas que voam do centro; letra sincronizada, com as palavras acendendo no ritmo; e o wallpaper com brilho, desfoque, zoom e tremor nas batidas. Um controle de intensidade (10–200%) vale para tudo. Detalhes abaixo. |
-| Central de controle | `SUPER+N` ou clique no status; botão direito no Wi-Fi ou no Bluetooth abre o `nm-connection-editor` ou o `blueman-manager` | Wi-Fi, redes Wi-Fi conhecidas no alcance (perfis salvos no NetworkManager: clique para conectar ou desconectar, "Editar" abre o `nm-connection-editor`), Bluetooth (dispositivos conectados com bateria e botão de desconectar; nos de áudio, troca de modo, Música/A2DP ou Chamada/HFP com microfone, e de codec com um clique, via perfis do PipeWire), Não perturbe, Manter ativo (idle inhibit), perfil de energia (só com o `power-profiles-daemon` já rodando: o shell nunca o ativa, porque isso trava o login e para o auto-cpufreq/tlp); volume, microfone e brilho; histórico de notificações. |
-| Atualizações | clique no ícone ao lado do status | Na barra, um check verde quando está tudo em dia e uma seta de download amarela quando há o que atualizar. A gaveta mostra uma tabela com quantos pacotes cada gerenciador tem para atualizar: Sistema (pacman e AUR via yay), Oh My Zsh, Rust (cargo), VS Code Extensions, NeoVim (plugins do lazy.nvim), Node (pacotes globais do npm), Imagens docker, PHP Composer (global), GitHub (extensões e skills do `gh`), Claude Code (e seus plugins) e Python UV (ferramentas do uv). "Verificar" consulta de novo. O botão âmbar "Upgrade" roda o [topgrade](https://github.com/topgrade-rs/topgrade) só nos gerenciadores com pendências, e a saída aparece num painel que sobe da borda de baixo da tela (90% da largura, um terço da altura) e fecha sozinho quando o upgrade termina. Detalhes abaixo. |
-| Sessão | `SUPER+CTRL+Q` ou botão ⏻ | Funciona como um DHD: escolha a tecla e confirme no domo vermelho. Duplo clique executa direto. |
-| Lançador | `SUPER+D` ou glifo de origem | Funciona como o computador de discagem do SGC: cada letra digitada codifica um chevron e gira o anel de glifos, o app selecionado aparece no horizonte de eventos e Enter trava o 7º chevron e abre o buraco de minhoca (inicia o app). Começando com `>`, disca um comando. |
-| Cubo de workspaces | `SUPER+1…0`, `SUPER+SHIFT+1…0` (move a janela junto), `SUPER+Tab`/`SUPER+SHIFT+Tab`, `SUPER+roda do mouse`, roda sobre o número na barra | Trocar de workspace gira um cubo na vertical no monitor onde a troca acontece: o workspace seguinte sobe de baixo, o anterior desce de cima, com janelas e wallpaper nas faces e luz ciano nas arestas. A barra fica parada. Detalhes abaixo. |
-| Fechar janela | `SUPER+Q` | A janela é sugada por um Stargate no estilo de SG-1 (anel de aço com glifos): o portal abre sobre ela, as lâmpadas dos nove chevrons acendem uma a uma, o horizonte de eventos azul se forma, a janela gira e cai nele, e o portal se fecha com um clarão e uma onda de choque. Detalhes abaixo. |
-| Previsão do tempo | — | Placa na área de trabalho, por baixo das janelas, que pode ser arrastada para qualquer ponto do monitor. Mostra o tempo com uma animação leve (sol, lua com estrelas, nuvens brancas, nuvens cinza com chuva, garoa ou neve, nuvens escuras com raios, neblina), a temperatura, a sensação térmica e a direção e a velocidade do vento. Um clique abre a tabela das próximas 6 horas (temperatura, sensação, chance de chuva e vento). A engrenagem escolhe a cidade, digitada e procurada por nome (nada de GeoIP), e o monitor. Dados do [Open-Meteo](https://open-meteo.com), atualizados a cada 15 minutos. A animação para quando janelas lado a lado cobrem a área de trabalho. |
-| Wallpapers | `SUPER+CTRL+W` | Carrossel de placas inclinadas. `SUPER+SHIFT+W` sorteia um wallpaper. |
-| Notificações | — | Servidor próprio: popups, ações e histórico. |
-| OSD | teclas de volume/brilho | — |
-| Lock screen | — | `hypr/hyprlock.conf`, opcional. |
-| Apps no modo escuro | — | Qt 5 e 6 via qt5ct/qt6ct (estilo Fusion com a paleta Ancient, `apps/qt*ct/colors/ancient.conf`); GTK 3 com Adwaita-dark; GTK 4/libadwaita e Electron com `color-scheme prefer-dark`. |
+| Boot splash | — | When you log in, the Stargate dials while the shell loads. Once the shell responds, the 7th chevron locks, the wormhole opens, and the screen plunges into it down to the desktop. On connecting, it picks a random destination planet (Abydos, Chulak, Dakara, Atlantis…), shows its name on screen, and sends a system notification. A click skips the animation. If the shell does not respond within 90 s, it shows "DIALING FAILED" and exits. |
+| Bar | — | Active workspace number (scroll over it to switch), active window, clock, media, tray, package updates, and status. |
+| Dashboard | `SUPER+A` or click the clock | Clock, calendar, uptime/memory/disk, and ring gauges (CPU, MEM, TEMP, DISK). |
+| Media player | click the song title in the bar | Cover art, track, progress, and controls for the active MPRIS player. In the bar, right-click toggles play/pause and middle-click skips the track. The "Effects" button flips the player over to the music effects. |
+| Music effects | "Effects" in the player | While the player is playing, the desktop reacts to the music, underneath the windows. A visualizer in six shapes (bars, wave, mirror, ring, halo with the album cover, Annabelle) and particles flying out from the center; synced lyrics, with words lighting up in rhythm; and the wallpaper with glow, blur, zoom, and shake on the beats. One intensity control (10–200%) applies to everything. Details below. |
+| Control center | `SUPER+N` or click the status; right-click on Wi-Fi or Bluetooth opens `nm-connection-editor` or `blueman-manager` (`networkSettingsCommand` and `bluetoothSettingsCommand` in the config) | Wi-Fi, known Wi-Fi networks in range (profiles saved in NetworkManager: click to connect or disconnect, "Edit" opens `nm-connection-editor`), Bluetooth (connected devices with battery level and a disconnect button; for audio devices, one-click switching of mode, Music/A2DP or Call/HFP with microphone, and of codec, via PipeWire profiles), Do not disturb, Keep awake (idle inhibit), power profile (only with `power-profiles-daemon` already running: the shell never enables it, because that blocks login and stops auto-cpufreq/tlp); volume, microphone, and brightness; notification history. |
+| Updates | click the icon next to the status | In the bar, a green check when everything is up to date and a yellow download arrow when there is something to update. The drawer shows a table with how many packages each manager has to update: System (pacman and AUR via yay), Oh My Zsh, Rust (cargo), VS Code Extensions, NeoVim (lazy.nvim plugins), Node (global npm packages), Docker images, PHP Composer (global), GitHub (`gh` extensions and skills), Claude Code (and its plugins), and Python UV (uv tools). "Check" queries again. The amber "Upgrade" button runs [topgrade](https://github.com/topgrade-rs/topgrade) only on the managers with pending updates, and the output appears in a panel that rises from the bottom edge of the screen (90% of the width, one third of the height) and closes by itself when the upgrade finishes. Details below. |
+| Session | `SUPER+CTRL+Q` or the ⏻ button | Works like a DHD: pick the key and confirm on the red dome. Double-click executes directly. |
+| Launcher | `SUPER+D` or the point-of-origin glyph | Works like the SGC dialing computer: each letter typed encodes a chevron and spins the glyph ring, the selected app appears in the event horizon, and Enter locks the 7th chevron and opens the wormhole (launches the app). Starting with `>`, it dials a command. |
+| Workspace cube | `SUPER+1…0`, `SUPER+SHIFT+1…0` (moves the window along), `SUPER+Tab`/`SUPER+SHIFT+Tab`, `SUPER+mouse wheel`, scroll over the number in the bar | Switching workspaces spins a vertical cube on the monitor where the switch happens: the next workspace rises from below, the previous one drops from above, with windows and wallpaper on the faces and cyan light on the edges. The bar stays still. Details below. |
+| Close window | `SUPER+Q` | The window is sucked into an SG-1 style Stargate (steel ring with glyphs): the gate opens over it, the lamps of the nine chevrons light up one by one, the blue event horizon forms, the window spins and falls into it, and the gate shuts with a flash and a shockwave. Details below. |
+| Weather forecast | — | A plate on the desktop, underneath the windows, that can be dragged anywhere on the monitor. It shows the weather with a light animation (sun, moon with stars, white clouds, gray clouds with rain, drizzle or snow, dark clouds with lightning, fog), the temperature, the feels-like temperature, and the wind direction and speed. A click opens a table of the next 6 hours (temperature, feels-like, chance of rain, and wind). The gear picks the city, typed and searched by name (no GeoIP), and the monitor. Data from [Open-Meteo](https://open-meteo.com), refreshed every 15 minutes. The animation stops when tiled windows cover the desktop. |
+| Wallpapers | `SUPER+CTRL+W` | Carousel of tilted plates. `SUPER+SHIFT+W` picks a random wallpaper. |
+| Notifications | — | Its own server: popups, actions, and history. |
+| OSD | volume/brightness keys | — |
+| Lock screen | — | `hypr/hyprlock.conf.in`, optional (`./install.sh --hyprlock`). |
+| Dark mode apps | — | Qt 5 and 6 via qt5ct/qt6ct (Fusion style with the Ancient palette, `apps/qt*ct/colors/ancient.conf`); GTK 3 with Adwaita-dark; GTK 4/libadwaita and Electron with `color-scheme prefer-dark`. |
 
-As gavetas descem da barra, presas a ela por uma costura luminosa. Fecham com `Esc` ou com um clique fora.
+The drawers drop down from the bar, attached to it by a glowing seam. They close with `Esc` or a click outside.
 
-O `hypr/init.lua` também faz as ferramentas do NetworkManager abrirem flutuando e centralizadas, em vez de lado a lado: o `nm-connection-editor`, os diálogos do `nm-applet` (senha de Wi-Fi, informações da conexão) e os de login de VPN (`nm-*-auth-dialog`).
+`hypr/init.lua` also makes the NetworkManager tools open floating and centered instead of tiled: `nm-connection-editor`, the `nm-applet` dialogs (Wi-Fi password, connection information), and the VPN login dialogs (`nm-*-auth-dialog`).
 
-### Como o cubo funciona
+### How the cube works
 
-O Hyprland não tem essa animação, então o shell a desenha numa camada própria (`ancient-cube`, abaixo da barra):
+Hyprland has no such animation, so the shell draws it on a layer of its own (`ancient-cube`, below the bar):
 
-1. Captura a tela como está; ela vira a face da frente, congelada.
-2. Com o cubo já na tela, pede a troca ao Hyprland. O cubo se afasta até a face ocupar cerca de 80% da tela (240 ms), gira (520 ms) e se aproxima de novo até a face nova preencher a tela (240 ms).
-3. A face nova é montada a partir das peças, porque a tela coberta não pode ser capturada: o wallpaper e cada janela capturada onde o Hyprland a colocou. Algumas janelas o Hyprland não exporta (o Firefox, por exemplo). No lugar delas entra o recorte da última foto desse workspace, guardada na última vez que o cubo saiu dele, ou um painel com o nome do app, se não houver foto.
-4. O cubo some num fade curto sobre o workspace real.
+1. It captures the screen as it is; that becomes the front face, frozen.
+2. With the cube already on screen, it asks Hyprland to switch. The cube pulls back until the face fills about 80% of the screen (240 ms), rotates (520 ms), and moves in again until the new face fills the screen (240 ms).
+3. The new face is assembled from pieces, because the covered screen cannot be captured: the wallpaper and each window captured where Hyprland placed it. Some windows are not exported by Hyprland (Firefox, for example). In their place goes a crop of the last snapshot of that workspace, saved the last time the cube left it, or a panel with the app name if there is no snapshot.
+4. The cube disappears with a short fade over the real workspace.
 
-As teclas chamam atalhos globais do shell (`ancient:go-<alvo>` e `ancient:move-<alvo>`) só enquanto a barra está no ar. Sem o shell, elas trocam de workspace direto pelo Hyprland, então nunca param de funcionar. O cubo gira no monitor onde o workspace aparece, mesmo que o foco esteja em outro: no workspace aberto ali, ou no monitor a que uma regra do Hyprland o prende (`workspace 8 → DP-1`), se ele ainda não existir. Um workspace que já está na tela de outro monitor (o Hyprland só move o foco para lá), nomeado ou especial troca sem cubo. Uma troca pedida durante a animação espera o cubo terminar e então é refeita a partir do workspace em que ele parou. Para desligar o cubo, use `"workspaceCube": false` no config.
+The keys call the shell's global shortcuts (`ancient:go-<target>` and `ancient:move-<target>`) only while the bar is up. Without the shell, they switch workspaces directly through Hyprland, so they never stop working. The cube spins on the monitor where the workspace appears, even if focus is on another one: on the workspace open there, or on the monitor a Hyprland rule binds it to (`workspace 8 → DP-1`), if it does not exist yet. A workspace already on screen on another monitor (Hyprland only moves focus there), a named one, or a special one switches without the cube. A switch requested during the animation waits for the cube to finish and is then redone from the workspace where it stopped. To turn the cube off, use `"workspaceCube": false` in the config.
 
-### Como o fechamento pelo Stargate funciona
+### How the Stargate close works
 
-Uma janela que já fechou não pode mais ser desenhada, então o shell a guarda antes, numa camada própria (`ancient-gate`, acima de tudo):
+A window that has already closed can no longer be drawn, so the shell saves it beforehand, on a layer of its own (`ancient-gate`, above everything):
 
-1. Captura a tela como está e cobre a janela com essa foto congelada.
-2. Com a foto na tela, desliga a animação de fechamento do Hyprland só para essa janela e pede para fechá-la.
-3. Quando o Hyprland avisa que ela fechou, o portal abre sobre a foto e a engole (`windowfx/shaders/gate.frag`, cerca de 1,2 s).
+1. It captures the screen as it is and covers the window with that frozen snapshot.
+2. With the snapshot on screen, it turns off Hyprland's close animation for that window only and asks to close it.
+3. When Hyprland reports that it closed, the gate opens over the snapshot and swallows it (`windowfx/shaders/gate.frag`, about 1.2 s).
 
-Só o `SUPER+Q` passa pelo portal, e só com o shell no ar (atalho global `ancient:close-window`); sem o shell, ele fecha a janela direto pelo Hyprland. Janelas fechadas de outro jeito (o próprio botão, o app saindo) mantêm a animação do Hyprland. Um app que pergunta antes de fechar (trabalho não salvo) fica aberto: a foto some e a janela recebe a animação de volta. Para desligar o portal, use `"gateClose": false` no config. Depois de editar o shader, gere o `.qsb` de novo com `/usr/lib/qt6/bin/qsb --qt6 -o gate.frag.qsb gate.frag` e reinicie o shell (`qs -c ancient kill` e abra de novo): recarregar a config não troca um shader já carregado.
+Only `SUPER+Q` goes through the gate, and only with the shell up (global shortcut `ancient:close-window`); without the shell, it closes the window directly through Hyprland. Windows closed some other way (their own button, the app quitting) keep Hyprland's animation. An app that asks before closing (unsaved work) stays open: the snapshot disappears and the window gets its animation back. To turn the gate off, use `"gateClose": false` in the config. After editing the shader, regenerate the `.qsb` with `/usr/lib/qt6/bin/qsb --qt6 -o gate.frag.qsb gate.frag` and restart the shell (`qs -c ancient kill` and start it again): reloading the config does not replace an already loaded shader.
 
-Em notebooks híbridos (Intel ou AMD mais NVIDIA), o `hypr/init.lua` inicia o shell na GPU integrada, a mesma em que o Hyprland compõe, mesmo que a sessão mande os apps para a NVIDIA. Na NVIDIA, cada captura atravessa as GPUs pela memória e leva de 3 a 5 vezes mais tempo. Os apps abertos pelo shell (lançador, central de controle, sessão) são executados pelo Hyprland e por isso continuam recebendo o ambiente da sessão.
+On hybrid laptops (Intel or AMD plus NVIDIA), `hypr/init.lua` starts the shell on the integrated GPU, the same one Hyprland composites on, even if the session sends apps to the NVIDIA. On the NVIDIA, each capture crosses between GPUs through memory and takes 3 to 5 times longer. Apps opened by the shell (launcher, control center, session) are run by Hyprland and so still receive the session environment.
 
-### Como os efeitos de música funcionam
+### How the music effects work
 
-- O espectro vem do [cava](https://github.com/karlstav/cava), lendo a saída de áudio do PipeWire (64 bandas a 60 quadros por segundo). Ele só roda enquanto o player toca e algum efeito está ligado; com a música pausada, o shell volta a ficar parado.
-- As batidas são os picos dos graves acima da média recente. Elas puxam o zoom, o brilho e o tremor do wallpaper, e aceleram as partículas.
-- O visualizador é um fragment shader só (`wallpaper/shaders/visualizer.frag`), desenhado na camada do wallpaper de cada monitor. Depois de editar o shader, gere o `.qsb` de novo com `/usr/lib/qt6/bin/qsb --qt6 -o visualizer.frag.qsb visualizer.frag` (pacote `qt6-shadertools`).
-- A letra sincronizada vem do [LRCLIB](https://lrclib.net), um acervo aberto e gratuito. Com a letra ligada, o shell manda o artista e o título da faixa para o lrclib.net, uma vez por faixa e sessão. Desligue a letra no painel para não enviar nada.
-- As escolhas do painel ficam em `~/.local/state/quickshell/by-shell/<id>/music-fx.json`.
+- The spectrum comes from [cava](https://github.com/karlstav/cava), reading the PipeWire audio output (64 bands at 60 frames per second). It only runs while the player is playing and some effect is on; with the music paused, the shell goes back to being idle.
+- The beats are bass peaks above the recent average. They drive the wallpaper's zoom, glow, and shake, and speed up the particles.
+- The visualizer is a single fragment shader (`wallpaper/shaders/visualizer.frag`), drawn on each monitor's wallpaper layer. After editing the shader, regenerate the `.qsb` with `/usr/lib/qt6/bin/qsb --qt6 -o visualizer.frag.qsb visualizer.frag` (package `qt6-shadertools`).
+- Synced lyrics come from [LRCLIB](https://lrclib.net), a free and open collection. With lyrics on, the shell sends the track's artist and title to lrclib.net, once per track and session. Turn lyrics off in the panel to send nothing.
+- The panel's choices are stored in `~/.local/state/quickshell/by-shell/<id>/music-fx.json`.
 
 ### Annabelle
 
-A forma "Annabelle" recria a ovelha da visualização do RealPlayer do início dos anos 2000, desenhada em vetor (`wallpaper/annabelle/`), numa janela redonda que o anel de raios do espectro contorna.
+The "Annabelle" shape recreates the sheep from the early-2000s RealPlayer visualization, drawn as vectors (`wallpaper/annabelle/`), in a round window that the spectrum's ring of rays surrounds.
 
-- **Ela ouve a música com você.** O andamento sai do próprio espectro: o quanto ele sobe de um quadro para o outro marca os ataques, a autocorrelação dos últimos 8 s dá o período da batida (de ~70 a ~170 bpm), e um pente com esse período alinhado aos ataques diz onde as batidas caem. Um relógio nesse andamento, puxado de leve para as batidas, comanda os passos. Ele vai adiantado o quanto o espectro atrasa em relação ao som (~80 ms), e cada movimento é adiantado o quanto a sua suavização o atrasa, para que joelhos, cabeça e cascos desçam na hora em que a batida soa, e não um instante depois. Uma virada ou um trecho com acentos deslocados não a tira do tempo; ela só muda de fase se a batida aparecer em outro lugar por 4 s seguidos. Com batida firme e som cheio ela dança mais: joelhos que descem em cada batida e cabeça balançando, um casco batendo por vez (sapateado), e no auge o sapateado em dobro, orelhas sacudindo e pulos que aterrissam na batida seguinte (ou no meio dela, numa música lenta). Num trecho bem mais calmo que o resto da música, fecha os olhos e balança; quando a música volta, pula de olhos arregalados. Ela canta junto quando há voz na música (sempre com o microfone, e muitas vezes enquanto uma linha da letra sincronizada está sendo cantada). Numa faixa nova, levanta as orelhas, olha para você e começa a ouvir o andamento do zero.
-- **Cenários** trocam ao acaso, sem ordem, numa batida forte, a cada 16–36 s: dia no pasto, noite com lua e estrelas cadentes (que piscam com os agudos), discoteca com globo espelhado, psicodélico (céu e grama numa cor que gira com a música) e filme antigo (cinza, com poeira e riscos).
-- **Visuais** mudam junto com o cenário: clássico, óculos escuros com tatuagem ☮, tatuagem anarquista Ⓐ, cartola com microfone, moicano roxo, boina vermelha.
-- **Visitas** de vez em quando: um disco voador que a levanta no raio trator enquanto ela faz caretas, uma bola de praia que quica nas costas dela em cada batida, um passarinho que pousa nas costas dela, dança junto e pia notas, um dirigível com o espectro na tela.
+- **She listens to the music with you.** The tempo comes from the spectrum itself: how much it rises from one frame to the next marks the onsets, the autocorrelation of the last 8 s gives the beat period (from ~70 to ~170 bpm), and a comb with that period aligned to the onsets tells where the beats fall. A clock at that tempo, gently pulled toward the beats, drives the steps. It runs ahead by as much as the spectrum lags behind the sound (~80 ms), and each movement is advanced by as much as its smoothing delays it, so that knees, head, and hooves come down when the beat sounds, not a moment later. A drum fill or a stretch of off-beat accents does not throw her off; she only shifts phase if the beat shows up somewhere else for 4 s in a row. With a steady beat and a full sound she dances more: knees dipping on every beat and head bobbing, one hoof tapping at a time (tap dancing), and at the peak double-time tap dancing, ears flapping, and jumps that land on the next beat (or halfway through it, in a slow song). In a stretch much calmer than the rest of the song, she closes her eyes and sways; when the music comes back, she jumps with wide-open eyes. She sings along when there are vocals in the music (always with the microphone, and often while a line of the synced lyrics is being sung). On a new track, she perks up her ears, looks at you, and starts listening for the tempo from scratch.
+- **Scenes** change at random, in no particular order, on a strong beat, every 16–36 s: day in the pasture, night with moon and shooting stars (which twinkle with the treble), disco with a mirror ball, psychedelic (sky and grass in a color that cycles with the music), and old film (gray, with dust and scratches).
+- **Looks** change along with the scene: classic, sunglasses with a ☮ tattoo, anarchist Ⓐ tattoo, top hat with microphone, purple mohawk, red beret.
+- **Visitors** now and then: a flying saucer that lifts her in its tractor beam while she pulls faces, a beach ball that bounces on her back on every beat, a little bird that lands on her back, dances along, and chirps notes, a blimp with the spectrum on its screen.
 
-### Como as atualizações funcionam
+### How the updates work
 
-`scripts/upgrades.py check` consulta os gerenciadores em paralelo, sem instalar nada, um minuto depois do login e a cada 3 horas. Cada número é o que o passo correspondente do topgrade mudaria, então um upgrade leva a contagem a zero:
+`scripts/upgrades.py check` queries the managers in parallel, without installing anything, one minute after login and every 3 hours. Each number is what the corresponding topgrade step would change, so an upgrade brings the count to zero:
 
-| Gerenciador | Como conta | Passo do topgrade |
+| Manager | How it counts | topgrade step |
 |---|---|---|
-| Sistema | `checkupdates` (cópia temporária dos bancos do pacman, sem root) e `yay -Qua` | `system` |
-| Oh My Zsh | `git fetch` e commits atrás do `origin/master` (conta 1; o topgrade não atualiza os plugins em `custom/`) | `shell` |
+| System | `checkupdates` (temporary copy of the pacman databases, no root) and `yay -Qua` | `system` |
+| Oh My Zsh | `git fetch` and commits behind `origin/master` (counts as 1; topgrade does not update the plugins in `custom/`) | `shell` |
 | Rust | `cargo install-update --list --git` | `cargo` |
-| VS Code Extensions | versão instalada contra a última do Marketplace compatível com o VS Code e a plataforma (as fixadas ficam de fora) | `vscode` |
-| NeoVim | o próprio check do lazy.nvim, num Neovim headless com a sua config | `vim` |
-| Node | `npm outdated -g` (versão "wanted") com o Node de `upgradesNodeBin` | `node` |
-| Imagens docker | digest da tag no registro (requisição `HEAD`, anônima, que não gasta o limite do Docker Hub) contra o da imagem local; imagens construídas localmente ficam de fora. Com o daemon parado, não consulta (e não o acorda) | `containers` |
+| VS Code Extensions | installed version against the latest Marketplace version compatible with VS Code and the platform (pinned ones are left out) | `vscode` |
+| NeoVim | lazy.nvim's own check, in a headless Neovim with your config | `vim` |
+| Node | `npm outdated -g` ("wanted" version) with the Node from `upgradesNodeBin` | `node` |
+| Docker images | the tag's digest in the registry (anonymous `HEAD` request, which does not count against the Docker Hub rate limit) against the local image's; locally built images are left out. With the daemon stopped, it does not query (and does not wake it up) | `containers` |
 | PHP Composer | `composer global update --dry-run` | `composer` |
-| GitHub | `gh extension upgrade --all --dry-run` e `gh skill update --all --dry-run` | `github_cli_extensions`, `github_cli_skills` |
-| Claude Code | versão instalada contra o canal de releases (`autoUpdatesChannel`), e plugins cujo marketplace lista outra versão | `claude_code`, `claude_code_plugins` |
-| Python UV | `uv tool list --outdated`, o próprio uv (quando ele pode se atualizar) e Pythons gerenciados pelo uv com patch novo | `uv` |
+| GitHub | `gh extension upgrade --all --dry-run` and `gh skill update --all --dry-run` | `github_cli_extensions`, `github_cli_skills` |
+| Claude Code | installed version against the release channel (`autoUpdatesChannel`), and plugins whose marketplace lists a different version | `claude_code`, `claude_code_plugins` |
+| Python UV | `uv tool list --outdated`, uv itself (when it can update itself), and uv-managed Pythons with a new patch release | `uv` |
 
-O upgrade roda `topgrade --no-tmux --no-self-update --no-ask-retry --yes --only <passos>` num processo destacado do shell, que continua mesmo que o shell reinicie (um pacman interrompido no meio deixaria o sistema pela metade). A saída, sem cores, é acrescentada a `~/upgrade.log`, com um cabeçalho e o código de saída de cada execução. Um shell que reinicia durante o upgrade volta a acompanhá-lo, e o ícone de atualizações gira enquanto ele roda (o clique mostra ou esconde a saída). Enquanto isso, o desligamento e a suspensão ficam bloqueados (`systemd-inhibit`), e um upgrade pedido no meio de uma verificação espera ela terminar. O painel fecha ao terminar, com ou sem falhas: o topgrade avisa o resultado numa notificação, e a gaveta mostra quando o último upgrade falhou. Sem terminal, o sudo não tem onde pedir senha: o passo do sistema precisa de sudo sem senha para o pacman.
+The upgrade runs `topgrade --no-tmux --no-self-update --no-ask-retry --yes --only <steps>` in a process detached from the shell, which keeps going even if the shell restarts (a pacman interrupted midway would leave the system half-upgraded). The output, without colors, is appended to the log (`upgradesLog` in the config, `~/upgrade.log` by default), with a header and the exit code of each run. A shell that restarts during the upgrade picks up tracking it again, and the updates icon spins while it runs (clicking it shows or hides the output). Meanwhile, shutdown and suspend are blocked (`systemd-inhibit`), and an upgrade requested in the middle of a check waits for it to finish. The panel closes when it finishes, with or without failures: topgrade reports the result in a notification, and the drawer shows when the last upgrade failed. Without a terminal, sudo has nowhere to ask for a password: the system step needs passwordless sudo for pacman.
 
-## Instalar
+## Installation
+
+Works with any Hyprland using a Lua config (`hyprland.lua`), whether your own or one from a dotfiles bundle.
 
 ```sh
 sudo pacman -S --needed quickshell qt6-svg qt6-5compat qt5ct qt6ct brightnessctl networkmanager imagemagick cava
-# ícones: Material Symbols Rounded (AUR: ttf-material-symbols-variable-git)
-# atualizações: python, pacman-contrib (checkupdates) e topgrade (AUR)
+# icons: Material Symbols Rounded (AUR: ttf-material-symbols-variable-git)
+# updates: python, pacman-contrib (checkupdates), and topgrade (AUR)
 
-./install.sh                  # links: ~/.config/quickshell/ancient, fontes, ~/.config/hypr/ancient-shell
-./install.sh --replace-ml4w   # também tira waybar/swaync/hyprpaper do autostart do ML4W
-./install.sh --hyprlock       # também usa o lock screen Ancient (faz backup do hyprlock.conf)
-./install.sh --now            # troca o shell da sessão atual imediatamente
-./install.sh --uninstall      # desfaz tudo (combine com --now para religar o ML4W)
+./install.sh                      # links, fonts, Hyprland fragment, dark apps, and config.json
+./install.sh --entry FILE.lua     # loads the fragment from this file instead of hyprland.lua
+./install.sh --disable-autostart  # also disables autostart of the bars and daemons the shell replaces
+./install.sh --hyprlock           # also uses the Ancient lock screen (backs up hyprlock.conf)
+./install.sh --now                # switches the current session's shell immediately
+./install.sh --uninstall          # undoes everything (with --now, restarts what was disabled)
 ```
 
-O instalador coloca `require("ancient-shell/init")` no fim de `conf/custom.lua` (ML4W) ou do `hyprland.lua`. As linhas de autostart que ele desativa ficam comentadas com `-- [ancient-shell]`, e o `--uninstall` as restaura.
+What the installer does:
 
-Para forçar o modo escuro, o instalador troca `~/.config/qt5ct` e `~/.config/qt6ct` por uma configuração própria. A anterior fica guardada em `~/.config/qt5ct.ancient-backup` e `~/.config/qt6ct.ancient-backup`, e o `--uninstall` a devolve. Ele também roda `gsettings set org.gnome.desktop.interface color-scheme prefer-dark` e liga `gtk-application-prefer-dark-theme` nos `settings.ini` do GTK. O `hypr/init.lua` define `QT_QPA_PLATFORMTHEME=qt6ct` (os plugins do qt5ct e do qt6ct aceitam esse nome) e `ADW_DEBUG_COLOR_SCHEME=prefer-dark`. Apps que já estavam abertos só mudam quando forem reabertos.
+- Links `quickshell/ancient` to `~/.config/quickshell/ancient`, the fonts to `~/.local/share/fonts/ancient-shell`, and `hypr/` to `~/.config/hypr/ancient-shell` (honoring `XDG_CONFIG_HOME` and `XDG_DATA_HOME`).
+- Looks for `require("ancient-shell/init")` in every `.lua` under `~/.config/hypr`, following links to files and folders (like those from GNU stow). If it does not find it, it appends the line to the end of `hyprland.lua`, or of the file passed in `--entry`. Use `--entry` when your dotfiles overwrite `hyprland.lua` on updates and have a file of their own for customizations, loaded by it. The line has to come after your keybindings, because the fragment replaces the bindings it uses (`SUPER+D`, `SUPER+Q`, `SUPER+1…0`…).
+- Creates `~/.config/ancient-shell/config.json` if it does not exist, with the wallpaper folder (`Wallpapers` inside the `xdg-user-dir` pictures folder, where it copies the repository's wallpapers) and the first installed terminal among kitty, foot, alacritty, ghostty, konsole, and xterm.
+- `--disable-autostart` comments out, in any `.lua` under `~/.config/hypr`, the `hl.exec_cmd("…")` lines that start waybar, swaync, mako, dunst, fnott, hyprpaper, swww, swaybg, wpaperd, hyprpanel, or another Quickshell config. Only lines that are a complete call with a single quoted string (`hl.exec_cmd("waybar")`) qualify: commenting out one line of a call that continues on the next, or that has other statements, would break the config, and a command built with `..` could not be restarted. They are marked with `-- [ancient-shell]`, and `--uninstall` restores them. With `--now`, those programs are terminated (the other Quickshell configs with `qs -c <name> kill`). One of these programs that is running but is started from somewhere else produces a warning: if it is a systemd user service (the hyprpaper package, for example, ships with `hyprpaper.service` enabled), the warning includes its `systemctl --user disable --now`; if it is a script, disable it where it is started.
+- `--hyprlock` generates `~/.config/hypr/hyprlock.conf` from `hypr/hyprlock.conf.in`, with the path of the cache where the shell writes the blurred background. A `hyprlock.conf` that was not generated by it, or that you edited afterwards, becomes `hyprlock.conf.bak.<date>`, and `--uninstall` gives yours back. After the first `--hyprlock`, each `./install.sh` updates the generated file (and replaces the link that earlier versions created). The text and the date format follow the locale language of whoever runs the installer (see [Translations](#translations)).
 
-Sem ML4W, basta linkar `quickshell/ancient` em `~/.config/quickshell/ancient` e carregar `hypr/init.lua` no seu config Lua. Se o seu config for hyprlang, rode `qs -c ancient` no `exec-once`.
+To force dark mode, the installer replaces `~/.config/qt5ct` and `~/.config/qt6ct` with its own configuration. The previous one is kept in `~/.config/qt5ct.ancient-backup` and `~/.config/qt6ct.ancient-backup`, and `--uninstall` restores it. It also runs `gsettings set org.gnome.desktop.interface color-scheme prefer-dark` and turns on `gtk-application-prefer-dark-theme` in the GTK `settings.ini` files. `hypr/init.lua` sets `QT_QPA_PLATFORMTHEME=qt6ct` (both the qt5ct and qt6ct plugins accept that name) and `ADW_DEBUG_COLOR_SCHEME=prefer-dark`. Apps that were already open only change when reopened.
 
-## Configurar
+`--uninstall` keeps `config.json` and the copied wallpapers.
 
-Edite `~/.config/ancient-shell/config.json` (caminhos absolutos). Ele é criado na primeira execução e recarregado sozinho quando muda.
+With a hyprlang config (`hyprland.conf`), the fragment does not load: run `./install.sh` for the links and `config.json`, start the shell with `exec-once = qs -c ancient`, and create the keybindings by calling the IPC (below). The shell itself works with both syntaxes.
+
+## Configuration
+
+Edit `~/.config/ancient-shell/config.json` (or `$XDG_CONFIG_HOME/ancient-shell/config.json`). It reloads automatically when it changes. Missing keys use the default (a key deleted while the shell is running only goes back to the default when it restarts), and paths can start with `~/`.
 
 ```json
 {
-  "wallpaperDir": "/home/<você>/Pictures/Wallpapers",
-  "defaultWallpaper": "/home/<você>/Pictures/Wallpapers/earth_stargate.png",
+  "wallpaperDir": "~/Pictures/Wallpapers",
+  "defaultWallpaper": "",
   "clock24h": true,
   "showSeconds": false,
   "workspaces": 9,
   "terminal": "kitty",
   "lockCommand": "loginctl lock-session",
-  "locale": "pt_BR",
+  "suspendCommand": "systemctl suspend",
+  "rebootCommand": "systemctl reboot",
+  "poweroffCommand": "systemctl poweroff",
+  "networkSettingsCommand": "nm-connection-editor",
+  "bluetoothSettingsCommand": "blueman-manager",
+  "diskPath": "/",
+  "locale": "",
   "workspaceCube": true,
   "gateClose": true,
-  "upgradesNodeBin": "/home/<você>/.nvm/versions/node/v22.14.0/bin"
+  "upgradesNodeBin": "",
+  "upgradesLog": "~/upgrade.log",
+  "upgradesPath": ["~/.cargo/bin", "~/.local/bin"]
 }
 ```
 
-`upgradesNodeBin` é a pasta `bin` do Node cujos pacotes globais do npm entram nas atualizações; vazio usa o `npm` do PATH.
+| Key | What it is |
+|---|---|
+| `wallpaperDir` | Wallpaper folder for the picker and for `wallpaper random`. |
+| `defaultWallpaper` | Wallpaper used while none has been chosen; empty uses the first image in `wallpaperDir`. |
+| `terminal` | Opens the launcher's terminal apps as `<terminal> -e <command>`. |
+| `lockCommand`, `suspendCommand`, `rebootCommand`, `poweroffCommand` | Session menu actions; empty removes the action from the menu. |
+| `networkSettingsCommand`, `bluetoothSettingsCommand` | Apps opened by the control center; empty hides the link and disables right-click. |
+| `diskPath` | Mount point whose usage is shown on the dashboard. |
+| `locale` | Locale for dates (for example, `pt_BR`); empty uses the environment's (`LC_ALL`, `LC_TIME`, `LANG`). |
+| `workspaceCube`, `gateClose` | Turns on the workspace cube and the Stargate close. |
+| `upgradesNodeBin` | Node `bin` folder whose global npm packages are included in the updates (for example, `~/.nvm/versions/node/v22.14.0/bin`); empty uses the `npm` on the PATH. |
+| `upgradesLog` | File the upgrade output is appended to. |
+| `upgradesPath` | Folders prepended to the PATH for the checks and the upgrade, which run with the session PATH (usually without the user's folders). |
 
-As cores ficam em `quickshell/ancient/theme/Theme.qml`, e as do Hyprland em `hypr/palette.lua`.
+The checks find the tools in their default locations and honor each one's variables: `ZSH` (Oh My Zsh), `VSCODE_EXTENSIONS`, and `CLAUDE_CONFIG_DIR`.
+
+The colors live in `quickshell/ancient/theme/Theme.qml`, and Hyprland's in `hypr/palette.lua`.
+
+## Translations
+
+The strings in the code are in English, and the translations live in gettext catalogs in `quickshell/ancient/i18n/` (`pt_BR.po` ships ready). The shell picks the language from the locale variables of the environment it runs in, like programs that use gettext:
+
+1. The messages locale is the first one set among `LC_ALL`, `LC_MESSAGES`, and `LANG`.
+2. If it is `C`, `C.UTF-8`, or `POSIX` (or none is set), everything stays in English, and `LANGUAGE` is ignored.
+3. Otherwise, the shell tries the languages in `LANGUAGE` (separated by `:`, for example `pt_BR:en`) and then the locale's, without the encoding: each with and without the modifier and the region (`sr_RS@latin`, `sr@latin`, `sr_RS`, `sr`). The first one that has a catalog wins, in full: whatever is missing from it stays in English. English ends the list, because it is the language of the code (with `LANGUAGE=en:pt_BR`, English). With no catalog at all, English.
+
+Day and month names follow `LC_ALL`, `LC_TIME`, or `LANG`, unless `locale` is set in `config.json`. The order of the date elements comes from the translation, so with `LC_TIME` and `LC_MESSAGES` in different languages the date mixes both. The weather forecast's city search uses the language of the loaded catalog.
+
+The shell inherits the environment of the Hyprland session. If the session runs with `LANG=C.UTF-8` (the systemd default when `/etc/locale.conf` does not set another), it stays in English. For Portuguese, set the session locale, for example in `/etc/locale.conf` (`LANG=pt_BR.UTF-8`) or in the Hyprland config, before the shell starts:
+
+```lua
+hl.env("LANG", "pt_BR.UTF-8")
+```
+
+The shell's translations and dates do not depend on the locale being generated on the system (Qt has its own data), but the lock screen date and the session's other programs do: check with `locale -a` (on Arch, uncomment the line in `/etc/locale.gen` and run `locale-gen`). After switching, restart the shell (`qs -c ancient kill` and start it again, or log out of the session).
+
+The updates script (`scripts/upgrades.py`) uses the same catalogs and the same rule. The lock screen is translated when `install.sh` generates `hyprlock.conf`, in the locale of whoever runs the installer; run `./install.sh` again after switching languages.
+
+### Adding a language
+
+Requires GNU gettext (`xgettext`, `msginit`, `msgmerge`, `msgfmt`).
+
+```sh
+cd quickshell/ancient/i18n
+msginit --no-translator -l fr_FR -i ancient-shell.pot -o fr.po   # or fr_FR.po, if it is region-specific
+# translate the msgstr entries in fr.po (Poedit, Lokalize, GTranslator, or a text editor)
+./update.sh --check
+```
+
+In QML, translatable strings go through `I18n.tr("Text")`, `I18n.tr("Checked at %1", time)`, `I18n.trn("%1 package", "%1 packages", n)`, or `I18n.trc("context", "Text")`; in Python, through `_()` from `scripts/i18n.py`; in `hypr/hyprlock.conf.in`, they go between `{{ }}`. An `i18n:` comment right before becomes a note for translators. After changing strings, run `quickshell/ancient/i18n/update.sh`: it regenerates `ancient-shell.pot` and updates the `.po` files, flagging what still needs translating. The shell reloads the catalog when the `.po` changes.
 
 ## IPC
 
 ```sh
-qs -c ancient ipc call shell dial "firefox"      # abre o lançador já preenchido
+qs -c ancient ipc call shell dial "firefox"      # opens the launcher already filled in
 qs -c ancient ipc call shell launcher|dashboard|media|musicFx|control|session|upgrades|wallpapers|closeAll|dnd
-qs -c ancient ipc call upgrades check|run|output|count   # output: mostra/esconde a saída do upgrade
+qs -c ancient ipc call upgrades check|run|output|count   # output: shows/hides the upgrade output
 qs -c ancient ipc call musicfx mode bars|wave|mirror|ring|halo
 qs -c ancient ipc call musicfx toggle visualizer|particles|lyrics|wallpaperFx|glow|blur|zoom|shake
-qs -c ancient ipc call musicfx intensity 150         # em %, de 10 a 200
-qs -c ancient ipc call wallpaper set /caminho/img.png | random | get
-qs -c ancient ipc call weather toggle|refresh|details|here   # here: traz para o monitor focado
-qs -c ancient ipc call weather city "Campinas"            # a primeira cidade com esse nome
+qs -c ancient ipc call musicfx intensity 150         # in %, from 10 to 200
+qs -c ancient ipc call wallpaper set /path/img.png | random | get
+qs -c ancient ipc call weather toggle|refresh|details|here   # here: brings it to the focused monitor
+qs -c ancient ipc call weather city "Campinas"            # the first city with that name
 qs -c ancient ipc call audio up|down|mute|mic
 qs -c ancient ipc call brightness up|down
-qs -c ancient ipc call workspace go 3|m+1|e-1      # troca com o cubo
-qs -c ancient ipc call workspace move 3            # leva a janela ativa junto
+qs -c ancient ipc call workspace go 3|m+1|e-1      # switches with the cube
+qs -c ancient ipc call workspace move 3            # takes the active window along
 qs -p ~/.config/quickshell/ancient/splash.qml ipc call splash skip|ready
 ```
 
-A splash roda numa instância própria (`qs -p …/splash.qml`), iniciada pelo `hypr/init.lua` junto com o shell. Assim ela aparece mesmo que o shell demore. Ela sabe que o shell está pronto ao consultar `ipc show` dele. Para desligá-la, comente a linha `hl.exec_cmd(SPLASH .. " -d")`.
+The splash runs in its own instance (`qs -p …/splash.qml`), started by `hypr/init.lua` alongside the shell. That way it shows up even if the shell is slow to start. It knows the shell is ready by querying the shell's `ipc show`. To turn it off, comment out the `hl.exec_cmd(SPLASH .. " -d")` line.
 
-Quando o wallpaper muda, `scripts/wallpaper-hook.sh` gera `~/.cache/ancient-shell/lock.png` (versão desfocada, para o hyprlock) e mantém o cache do ML4W em sincronia.
+When the shell starts and when the wallpaper changes, `scripts/wallpaper-hook.sh` generates `$XDG_CACHE_HOME/ancient-shell/lock.png` (`~/.cache/ancient-shell/lock.png`), the blurred version hyprlock uses as its background. If the background for that wallpaper already exists, it does nothing.
 
-## Estrutura
+## Structure
 
 ```
 quickshell/ancient/
-  shell.qml          raiz + IPC
-  splash.qml         splash de boot (instância separada)
-  theme/             paleta, fontes, métricas
+  shell.qml          root + IPC
+  splash.qml         boot splash (separate instance)
+  theme/             palette, fonts, metrics
   widgets/           ChamferPanel, OriginGlyph, GlyphSlider, RingGauge…
-  services/          Config, ShellState, Audio, Brightness, SysStats, Notifs, Wallpapers, Players, Hypr, WorkspaceNav, WindowClose, MusicFx, Lyrics, Weather, Upgrades
-  scripts/           wallpaper-hook.sh, upgrades.py (contagem de atualizações e o upgrade pelo topgrade)
-  workspace/         cubo de troca de workspace (Cube, WorkspaceCube, WorkspaceFace)
-  wallpaper/         wallpaper com os efeitos de música, visualizador (shaders/) e letra
-  weather/           widget de previsão do tempo (WeatherWidget, WeatherScene)
-  windowfx/          janela fechando sugada por um Stargate (GateClose, shaders/)
+  services/          Config, I18n, ShellState, Audio, Brightness, SysStats, Notifs, Wallpapers, Players, Hypr, WorkspaceNav, WindowClose, MusicFx, Lyrics, Weather, Upgrades
+  scripts/           wallpaper-hook.sh, upgrades.py (update counts and the topgrade upgrade), i18n.py (translations for Python and the lock screen)
+  i18n/              translation catalogs (ancient-shell.pot, pt_BR.po) and update.sh
+  workspace/         workspace switching cube (Cube, WorkspaceCube, WorkspaceFace)
+  wallpaper/         wallpaper with the music effects, visualizer (shaders/), and lyrics
+  weather/           weather forecast widget (WeatherWidget, WeatherScene)
+  windowfx/          window closing sucked into a Stargate (GateClose, shaders/)
   bar/  drawers/  notifications/  launcher/  wallpaper/  osd/  splash/
-  assets/fonts/      Orbitron e Rajdhani (SIL OFL)
-hypr/                init.lua, palette.lua, hyprlock.conf
-apps/qt5ct/ qt6ct/   paleta Qt escura e modelos do qt5ct.conf/qt6ct.conf
-wallpapers/          earth_origin.png e pegasus_chart.png (3840×2160, o mapa estelar dos Anciões), com os scripts que os geram em vetor
+  assets/fonts/      Orbitron and Rajdhani (SIL OFL)
+hypr/                init.lua, palette.lua, hyprlock.conf.in (lock screen template)
+apps/qt5ct/ qt6ct/   dark Qt palette and qt5ct.conf/qt6ct.conf templates
+wallpapers/          earth_origin.png and pegasus_chart.png (3840×2160, the Ancients' star map), with the scripts that generate them as vectors
 ```
 
-## Referências
+## References
 
-Inspirado em posts do r/unixporn: Vitreus/pleamar (painéis que brotam da barra), o seletor de wallpapers em Quickshell, ETEA e um KDE "tuned just right".
+Inspired by r/unixporn posts: Vitreus/pleamar (panels that sprout from the bar), the Quickshell wallpaper picker, ETEA, and a KDE "tuned just right".

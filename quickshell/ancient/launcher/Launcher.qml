@@ -90,12 +90,12 @@ PanelWindow {
 
     // Status line of the dialing computer
     readonly property var status: {
-        if (launching) return { text: "BURACO DE MINHOCA ESTABELECIDO", color: Theme.cyanBright };
-        if (commandMode) return query === "" ? { text: "DISCAGEM MANUAL", color: Theme.amber }
-            : { text: "COMANDO CODIFICADO", color: Theme.amber };
-        if (query === "") return { text: "AGUARDANDO ENDEREÇO", color: Theme.textDim };
-        if (!valid) return { text: "ENDEREÇO INVÁLIDO", color: Theme.dome };
-        return { text: "CHEVRON " + encoded + " CODIFICADO", color: Theme.cyan };
+        if (launching) return { text: I18n.tr("WORMHOLE ESTABLISHED"), color: Theme.cyanBright };
+        if (commandMode) return query === "" ? { text: I18n.tr("MANUAL DIALING"), color: Theme.amber }
+            : { text: I18n.tr("COMMAND ENCODED"), color: Theme.amber };
+        if (query === "") return { text: I18n.tr("AWAITING ADDRESS"), color: Theme.textDim };
+        if (!valid) return { text: I18n.tr("INVALID ADDRESS"), color: Theme.dome };
+        return { text: I18n.tr("CHEVRON %1 ENCODED", encoded), color: Theme.cyan };
     }
 
     function dial() {
@@ -188,13 +188,13 @@ PanelWindow {
                     size: 12
                     font.letterSpacing: 2.6
                     color: Theme.cyan
-                    text: "COMPUTADOR DE DISCAGEM"
+                    text: I18n.tr("DIALING COMPUTER")
                 }
                 Label {
                     anchors.verticalCenter: parent.verticalCenter
                     size: 12
                     color: Theme.textMute
-                    text: "SGC · " + (Quickshell.env("HOSTNAME") || "TERRA").toUpperCase()
+                    text: I18n.tr("SGC · %1", (Quickshell.env("HOSTNAME") || I18n.tr("EARTH")).toUpperCase())
                 }
             }
 
@@ -233,7 +233,7 @@ PanelWindow {
                     size: 10
                     font.letterSpacing: 2.2
                     color: Theme.textMute
-                    text: "DESTINO:"
+                    text: I18n.tr("DESTINATION:")
                 }
                 Label {
                     anchors.verticalCenter: parent.verticalCenter
@@ -282,11 +282,11 @@ PanelWindow {
 
             Row {
                 spacing: 6
-                Label { size: 12; display: true; font.letterSpacing: 1.6; color: Theme.textMute; text: "STATUS:" }
+                Label { size: 12; display: true; font.letterSpacing: 1.6; color: Theme.textMute; text: I18n.tr("STATUS:") }
                 Label {
                     size: 12; display: true; font.letterSpacing: 1.6
                     color: root.launching ? Theme.cyanBright : root.query !== "" ? Theme.amber : Theme.crystal
-                    text: root.launching ? "TRAVADO" : root.query !== "" ? "DISCANDO" : "ATIVO"
+                    text: root.launching ? I18n.tr("LOCKED") : root.query !== "" ? I18n.tr("DIALING") : I18n.tr("ACTIVE")
                 }
             }
 
@@ -339,7 +339,7 @@ PanelWindow {
                                 font.letterSpacing: 1.4
                                 color: Theme.crystal
                                 opacity: chevRow.lit ? 1 : 0
-                                text: "OK"
+                                text: I18n.tr("OK")
                                 Behavior on opacity { NumberAnimation { duration: Theme.animFast } }
                             }
                         }
@@ -451,7 +451,7 @@ PanelWindow {
                     size: 11
                     font.letterSpacing: 2
                     color: root.commandMode ? Theme.amber : Theme.cyan
-                    text: root.commandMode ? "CMD ▸" : "DISCAR ▸"
+                    text: root.commandMode ? I18n.tr("CMD ▸") : I18n.tr("DIAL ▸")
                 }
                 TextInput {
                     id: search
@@ -475,7 +475,8 @@ PanelWindow {
                         anchors.verticalCenter: parent.verticalCenter
                         size: 18
                         color: Theme.textMute
-                        text: "nome do destino…   ( > disca um comando )"
+                        // i18n: input placeholder; ">" is the literal prefix that switches to command mode
+                        text: I18n.tr("destination name…   ( > dials a command )")
                     }
 
                     Keys.onEscapePressed: ShellState.launcherOpen = false
@@ -501,8 +502,8 @@ PanelWindow {
             Row {
                 id: regHead
                 spacing: 8
-                Label { display: true; size: 10; font.letterSpacing: 2.2; color: Theme.amber; text: "REGISTRO DE DESTINOS" }
-                Label { size: 13; color: Theme.textMute; text: root.commandMode ? "—" : root.results.length + " endereços" }
+                Label { display: true; size: 10; font.letterSpacing: 2.2; color: Theme.amber; text: I18n.tr("DESTINATION LOG") }
+                Label { size: 13; color: Theme.textMute; text: root.commandMode ? "—" : I18n.trn("%1 address", "%1 addresses", root.results.length) }
             }
 
             ListView {
@@ -589,7 +590,8 @@ PanelWindow {
                     wrapMode: Text.Wrap
                     size: 15
                     color: root.commandMode ? Theme.amber : Theme.dome
-                    text: root.commandMode ? "Enter disca:\n" + search.text.slice(1).trim() : "Nenhum endereço corresponde"
+                    // i18n: shown when the query starts with ">"; %1 is the shell command, on its own line
+                    text: root.commandMode ? I18n.tr("Enter dials:\n%1", search.text.slice(1).trim()) : I18n.tr("No address matches")
                 }
             }
         }
@@ -608,7 +610,7 @@ PanelWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: 3
                 spacing: 10
-                Label { display: true; size: 9; font.letterSpacing: 2; color: Theme.textMute; text: "CÓDIGO DE AUTORIZAÇÃO" }
+                Label { display: true; size: 9; font.letterSpacing: 2; color: Theme.textMute; text: I18n.tr("AUTHORIZATION CODE") }
                 Label { font.family: Theme.fontMono; size: 13; font.letterSpacing: 3; color: Theme.cyan; text: root.authCode }
             }
             Row {
@@ -616,7 +618,7 @@ PanelWindow {
                 anchors.verticalCenterOffset: 3
                 spacing: 18
                 Repeater {
-                    model: [["↑↓", "destino"], ["Enter", "discar"], ["> ", "comando"], ["Esc", "abortar"]]
+                    model: [["↑↓", I18n.tr("destination")], ["Enter", I18n.tr("dial")], ["> ", I18n.tr("command")], ["Esc", I18n.tr("abort")]]
                     Row {
                         required property var modelData
                         spacing: 6
@@ -630,9 +632,9 @@ PanelWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: 3
                 spacing: 14
-                Label { display: true; size: 9; font.letterSpacing: 2; color: Theme.textMute; text: "USUÁRIO: " + (Quickshell.env("USER") || "").toUpperCase() }
-                Label { display: true; size: 9; font.letterSpacing: 2; color: Theme.textMute; text: "SIS:" }
-                Label { display: true; size: 9; font.letterSpacing: 2; color: Theme.crystal; text: "NOMINAL" }
+                Label { display: true; size: 9; font.letterSpacing: 2; color: Theme.textMute; text: I18n.tr("USER: %1", (Quickshell.env("USER") || "").toUpperCase()) }
+                Label { display: true; size: 9; font.letterSpacing: 2; color: Theme.textMute; text: I18n.tr("SYS:") }
+                Label { display: true; size: 9; font.letterSpacing: 2; color: Theme.crystal; text: I18n.tr("NOMINAL") }
             }
         }
     }

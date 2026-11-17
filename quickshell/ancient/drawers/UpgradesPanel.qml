@@ -28,7 +28,7 @@ Drawer {
             SectionTitle {
                 anchors.verticalCenter: parent.verticalCenter
                 width: parent.width - refresh.width - 12
-                text: "Atualizações"
+                text: I18n.tr("Upgrades")
             }
             MouseArea {
                 id: refresh
@@ -53,7 +53,7 @@ Drawer {
                     }
                     Label {
                         anchors.verticalCenter: parent.verticalCenter
-                        text: Upgrades.checking ? "Verificando" : "Verificar"
+                        text: Upgrades.checking ? I18n.tr("Checking") : I18n.tr("Check")
                         size: 13
                         color: refresh.containsMouse ? Theme.text : Theme.textDim
                     }
@@ -75,7 +75,7 @@ Drawer {
                     size: 9
                     font.letterSpacing: 2
                     color: Theme.textMute
-                    text: "GERENCIADOR"
+                    text: I18n.tr("MANAGER")
                 }
                 Label {
                     anchors.right: parent.right
@@ -84,7 +84,7 @@ Drawer {
                     size: 9
                     font.letterSpacing: 2
                     color: Theme.textMute
-                    text: "PACOTES"
+                    text: I18n.tr("PACKAGES")
                 }
             }
 
@@ -147,7 +147,7 @@ Drawer {
                             size: 16
                             color: row.count > 0 ? Theme.yellow : row.result?.error ? Theme.dome : Theme.textMute
                             text: row.result?.count !== undefined ? String(row.result.count)
-                                : row.result?.error ? "erro" : "—"
+                                : row.result?.error ? I18n.tr("error") : "—"
                         }
                     }
                 }
@@ -158,18 +158,18 @@ Drawer {
             width: parent.width
             size: 13
             color: Theme.textMute
-            text: Upgrades.active ? "Upgrade em andamento"
-                : Upgrades.checking ? "Consultando os gerenciadores…"
-                : !Upgrades.checked ? "Ainda não verificado"
-                : (Upgrades.total > 0 ? Upgrades.total + (Upgrades.total === 1 ? " pacote" : " pacotes") : "Tudo em dia")
-                    + " · verificado às " + Qt.formatTime(Upgrades.lastCheck, "HH:mm")
+            text: Upgrades.active ? I18n.tr("Upgrade in progress")
+                : Upgrades.checking ? I18n.tr("Querying the managers…")
+                : !Upgrades.checked ? I18n.tr("Not checked yet")
+                : Upgrades.total > 0 ? I18n.trn("%1 package · checked at %2", "%1 packages · checked at %2", Upgrades.total, Qt.formatTime(Upgrades.lastCheck, "HH:mm"))
+                : I18n.tr("All up to date · checked at %1", Qt.formatTime(Upgrades.lastCheck, "HH:mm"))
         }
         Label {
             width: parent.width
             visible: Upgrades.lastExit !== 0 && !Upgrades.active
             size: 13
             color: Theme.alpha(Theme.dome, 0.85)
-            text: "O último upgrade terminou com falhas · ~/upgrade.log"
+            text: I18n.tr("The last upgrade ended with failures · %1", Config.tilde(Config.upgradesLog))
         }
 
         // The key: amber, like the Atlantis consoles
@@ -210,7 +210,7 @@ Drawer {
                     size: 12
                     font.letterSpacing: 2.5
                     color: Theme.amberDeep
-                    text: "UPGRADE"
+                    text: I18n.tr("UPGRADE")
                 }
             }
         }

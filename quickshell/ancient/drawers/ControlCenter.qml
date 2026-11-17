@@ -45,11 +45,11 @@ Drawer {
         QuickToggle {
             icon: PowerProfiles.profile === PowerProfile.Performance ? "bolt"
                 : PowerProfiles.profile === PowerProfile.PowerSaver ? "eco" : "balance"
-            title: "Energia"
+            title: I18n.tr("Power")
             checked: PowerProfiles.profile !== PowerProfile.Balanced
             onColor: PowerProfiles.profile === PowerProfile.PowerSaver ? Theme.crystal : Theme.amber
-            subtitle: PowerProfiles.profile === PowerProfile.Performance ? "Desempenho"
-                : PowerProfiles.profile === PowerProfile.PowerSaver ? "Economia" : "Equilibrado"
+            subtitle: PowerProfiles.profile === PowerProfile.Performance ? I18n.tr("Performance")
+                : PowerProfiles.profile === PowerProfile.PowerSaver ? I18n.tr("Power saver") : I18n.tr("Balanced")
             onClicked: {
                 const order = [PowerProfile.PowerSaver, PowerProfile.Balanced];
                 if (PowerProfiles.hasPerformanceProfile) order.push(PowerProfile.Performance);
@@ -61,8 +61,8 @@ Drawer {
         id: noProfileToggle
         QuickToggle {
             icon: "balance"
-            title: "Energia"
-            subtitle: "Sem power-profiles"
+            title: I18n.tr("Power")
+            subtitle: I18n.tr("No power-profiles")
         }
     }
 
@@ -71,7 +71,7 @@ Drawer {
         width: parent.width
         spacing: 14
 
-        SectionTitle { width: parent.width; text: "Controles"; color: Theme.cyan }
+        SectionTitle { width: parent.width; text: I18n.tr("Controls"); color: Theme.cyan }
 
         Grid {
             width: parent.width
@@ -81,40 +81,40 @@ Drawer {
             QuickToggle {
                 width: (parent.width - 8) / 2
                 icon: root.wired ? "lan" : "wifi"
-                title: root.wired ? "Cabo" : "Wi-Fi"
+                title: root.wired ? I18n.tr("Wired") : I18n.tr("Wi-Fi")
                 checked: root.wired !== null || Networking.wifiEnabled
-                subtitle: root.wired ? "Conectado" : root.wifiNet ? root.wifiNet.name : Networking.wifiEnabled ? "Sem rede" : "Desligado"
+                subtitle: root.wired ? I18n.tr("Connected") : root.wifiNet ? root.wifiNet.name : Networking.wifiEnabled ? I18n.tr("No network") : I18n.tr("Off")
                 onClicked: Hypr.exec("nmcli radio wifi " + (Networking.wifiEnabled ? "off" : "on"))
-                onPressAndHold: Hypr.exec("nm-connection-editor")
-                onSecondaryClicked: Hypr.exec("nm-connection-editor")
+                onPressAndHold: Hypr.exec(Config.networkSettingsCommand)
+                onSecondaryClicked: Hypr.exec(Config.networkSettingsCommand)
             }
             QuickToggle {
                 width: (parent.width - 8) / 2
                 icon: "bluetooth"
-                title: "Bluetooth"
+                title: I18n.tr("Bluetooth")
                 checked: root.bt?.enabled ?? false
-                subtitle: !root.bt ? "Indisponível" : !root.bt.enabled ? "Desligado"
-                    : root.btConnected > 0 ? root.btConnected + " conectado(s)" : "Ligado"
+                subtitle: !root.bt ? I18n.tr("Unavailable") : !root.bt.enabled ? I18n.tr("Off")
+                    : root.btConnected > 0 ? I18n.trn("%1 connected", "%1 connected", root.btConnected) : I18n.tr("On")
                 onClicked: if (root.bt) root.bt.enabled = !root.bt.enabled
-                onPressAndHold: Hypr.exec("blueman-manager")
-                onSecondaryClicked: Hypr.exec("blueman-manager")
+                onPressAndHold: Hypr.exec(Config.bluetoothSettingsCommand)
+                onSecondaryClicked: Hypr.exec(Config.bluetoothSettingsCommand)
             }
             QuickToggle {
                 width: (parent.width - 8) / 2
                 icon: "do_not_disturb_on"
-                title: "Não perturbe"
+                title: I18n.tr("Do not disturb")
                 onColor: Theme.amber
                 checked: ShellState.dnd
-                subtitle: ShellState.dnd ? "Silenciado" : "Desligado"
+                subtitle: ShellState.dnd ? I18n.tr("Silenced") : I18n.tr("Off")
                 onClicked: ShellState.dnd = !ShellState.dnd
             }
             QuickToggle {
                 width: (parent.width - 8) / 2
                 icon: "coffee"
-                title: "Manter ativo"
+                title: I18n.tr("Keep awake")
                 onColor: Theme.amber
                 checked: ShellState.caffeine
-                subtitle: ShellState.caffeine ? "Sem bloqueio" : "Desligado"
+                subtitle: ShellState.caffeine ? I18n.tr("No auto-lock") : I18n.tr("Off")
                 onClicked: ShellState.caffeine = !ShellState.caffeine
             }
             // Power profiles only once power-profiles-daemon is already running:
@@ -127,8 +127,8 @@ Drawer {
             QuickToggle {
                 width: (parent.width - 8) / 2
                 icon: "wallpaper"
-                title: "Wallpaper"
-                subtitle: "Trocar"
+                title: I18n.tr("Wallpaper")
+                subtitle: I18n.tr("Change")
                 onClicked: ShellState.toggleWallpaperPicker()
             }
         }
@@ -145,7 +145,7 @@ Drawer {
             active: root.open
         }
 
-        SectionTitle { width: parent.width; text: "Níveis"; color: Theme.cyan }
+        SectionTitle { width: parent.width; text: I18n.tr("Levels"); color: Theme.cyan }
 
         GlyphSlider {
             width: parent.width
@@ -176,7 +176,7 @@ Drawer {
             height: 18
             SectionTitle {
                 width: parent.width - clear.width - 10
-                text: "Registro · " + Notifs.count
+                text: I18n.tr("Log · %1", Notifs.count)
             }
             MouseArea {
                 id: clear
@@ -192,7 +192,7 @@ Drawer {
                     anchors.centerIn: parent
                     size: 13
                     color: parent.containsMouse ? Theme.dome : Theme.textDim
-                    text: "Limpar"
+                    text: I18n.tr("Clear")
                 }
             }
         }
@@ -229,7 +229,7 @@ Drawer {
                 anchors.horizontalCenter: parent.horizontalCenter
                 size: 14
                 color: Theme.textMute
-                text: "Nenhuma mensagem"
+                text: I18n.tr("No messages")
             }
         }
     }

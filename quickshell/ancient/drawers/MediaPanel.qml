@@ -26,7 +26,7 @@ Drawer {
             SectionTitle {
                 anchors.verticalCenter: parent.verticalCenter
                 width: parent.width - fxBtn.width - 12
-                text: "Transmissão"
+                text: I18n.tr("Now playing")
             }
             MouseArea {
                 id: fxBtn
@@ -49,7 +49,7 @@ Drawer {
                     }
                     Label {
                         anchors.verticalCenter: parent.verticalCenter
-                        text: "Efeitos"
+                        text: I18n.tr("Effects")
                         size: 13
                         color: fxBtn.containsMouse ? Theme.text : Theme.textDim
                     }

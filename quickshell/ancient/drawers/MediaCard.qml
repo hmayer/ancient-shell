@@ -24,7 +24,7 @@ Item {
         anchors.centerIn: parent
         color: Theme.textMute
         size: 15
-        text: "Nenhuma transmissão ativa"
+        text: I18n.tr("Nothing playing")
     }
 
     Row {

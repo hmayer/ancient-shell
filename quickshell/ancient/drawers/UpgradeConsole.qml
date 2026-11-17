@@ -67,7 +67,7 @@ PanelWindow {
                     SectionTitle {
                         anchors.verticalCenter: parent.verticalCenter
                         width: parent.width - tools.width - 16
-                        text: "Upgrade" + (Upgrades.runNames.length > 0 ? " · " + Upgrades.runNames.join(", ") : "")
+                        text: Upgrades.runNames.length > 0 ? I18n.tr("Upgrade · %1", Upgrades.runNames.join(", ")) : I18n.tr("Upgrade")
                     }
                     Row {
                         id: tools
@@ -93,7 +93,7 @@ PanelWindow {
                             anchors.verticalCenter: parent.verticalCenter
                             size: 13
                             color: Theme.textMute
-                            text: "~/upgrade.log"
+                            text: Config.tilde(Config.upgradesLog)
                         }
                         MouseArea {
                             id: hide
@@ -108,7 +108,7 @@ PanelWindow {
                                 anchors.centerIn: parent
                                 size: 13
                                 color: hide.containsMouse ? Theme.text : Theme.textDim
-                                text: "Ocultar"
+                                text: I18n.tr("Hide")
                             }
                         }
                     }

@@ -1,0 +1,941 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the ancient-shell package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ancient-shell\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-17 09:33-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#. i18n: date(1) format of the lock screen's date, shown in capitals
+#: hypr/hyprlock.conf.in:53
+msgid "%A, %B %d"
+msgstr ""
+
+#. i18n: lock screen password field (the iris is the Stargate's shield)
+#: hypr/hyprlock.conf.in:94
+msgid "IRIS CODE"
+msgstr ""
+
+#. i18n: wrong password; keep $ATTEMPTS (the number of failed attempts)
+#: hypr/hyprlock.conf.in:96
+msgid "ACCESS DENIED ($ATTEMPTS)"
+msgstr ""
+
+#: quickshell/ancient/bar/ActiveWindow.qml:22
+msgid "DESKTOP"
+msgstr ""
+
+#. i18n: Qt date format (QLocale::toString): weekday, month, day
+#: quickshell/ancient/bar/Clock.qml:43
+msgid "ddd MMM dd"
+msgstr ""
+
+#: quickshell/ancient/drawers/BluetoothDevices.qml:37
+#: quickshell/ancient/drawers/ControlCenter.qml:94
+msgid "Bluetooth"
+msgstr ""
+
+#: quickshell/ancient/drawers/BluetoothDevices.qml:37
+msgid "Bluetooth · %1"
+msgstr ""
+
+#: quickshell/ancient/drawers/BluetoothDevices.qml:53
+msgid "Manage"
+msgstr ""
+
+#: quickshell/ancient/drawers/BluetoothDevices.qml:64
+msgid "No Bluetooth adapter"
+msgstr ""
+
+#: quickshell/ancient/drawers/BluetoothDevices.qml:65
+msgid "Bluetooth off"
+msgstr ""
+
+#: quickshell/ancient/drawers/BluetoothDevices.qml:66
+msgid "No connected devices"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:48
+#: quickshell/ancient/drawers/ControlCenter.qml:64
+msgid "Power"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:51
+msgid "Performance"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:52
+msgid "Balanced"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:52
+msgid "Power saver"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:65
+msgid "No power-profiles"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:74
+msgid "Controls"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:84
+msgid "Wi-Fi"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:84
+msgid "Wired"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:86
+msgid "Connected"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:86
+msgid "No network"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:86
+#: quickshell/ancient/drawers/ControlCenter.qml:96
+#: quickshell/ancient/drawers/ControlCenter.qml:108
+#: quickshell/ancient/drawers/ControlCenter.qml:117
+msgid "Off"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:96
+msgid "Unavailable"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:97
+msgid "%1 connected"
+msgid_plural "%1 connected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:97
+msgid "On"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:105
+msgid "Do not disturb"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:108
+msgid "Silenced"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:114
+msgid "Keep awake"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:117
+msgid "No auto-lock"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:130
+msgid "Wallpaper"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:131
+msgid "Change"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:148
+msgid "Levels"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:179
+msgid "Log · %1"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:195
+msgid "Clear"
+msgstr ""
+
+#: quickshell/ancient/drawers/ControlCenter.qml:232
+msgid "No messages"
+msgstr ""
+
+#. i18n: Qt date format (QLocale::toString): weekday, month, day
+#: quickshell/ancient/drawers/Dashboard.qml:58
+msgid "dddd, MMMM d"
+msgstr ""
+
+#: quickshell/ancient/drawers/Dashboard.qml:76
+#: quickshell/ancient/notifications/NotificationCard.qml:86
+#: quickshell/ancient/services/Upgrades.qml:16
+msgid "System"
+msgstr ""
+
+#. i18n: title of the uptime (how long since the system started)
+#: quickshell/ancient/drawers/Dashboard.qml:80
+msgid "Up"
+msgstr ""
+
+#: quickshell/ancient/drawers/Dashboard.qml:81
+msgid "Memory"
+msgstr ""
+
+#: quickshell/ancient/drawers/Dashboard.qml:82
+msgid "Disk %1"
+msgstr ""
+
+#: quickshell/ancient/drawers/Dashboard.qml:83
+msgid "User"
+msgstr ""
+
+#: quickshell/ancient/drawers/Dashboard.qml:111
+msgid "MEM"
+msgstr ""
+
+#: quickshell/ancient/drawers/Dashboard.qml:116
+msgid "TEMP"
+msgstr ""
+
+#: quickshell/ancient/drawers/Dashboard.qml:118
+msgid "DISK"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:41
+msgid "Known networks"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:41
+msgid "Known networks · %1"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:57
+msgid "Edit"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:68
+msgid "Wi-Fi off"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:69
+msgid "No known networks in range"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:109
+msgid "no saved password"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:110
+msgid "timed out"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:111
+msgid "network lost"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:112
+msgid "Wi-Fi failure"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:113
+msgid "disconnected"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:114
+msgid "unknown error"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:183
+msgid "Failed · %1"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:184
+msgid "Disconnecting…"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:185
+msgid "Connecting…"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:186
+msgctxt "network"
+msgid "Connected"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:186
+msgid "Disconnect"
+msgstr ""
+
+#: quickshell/ancient/drawers/KnownNetworks.qml:187
+msgid "Connect"
+msgstr ""
+
+#: quickshell/ancient/drawers/MediaCard.qml:27
+msgid "Nothing playing"
+msgstr ""
+
+#: quickshell/ancient/drawers/MediaPanel.qml:29
+msgid "Now playing"
+msgstr ""
+
+#: quickshell/ancient/drawers/MediaPanel.qml:52
+msgid "Effects"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:24
+msgid "Music effects"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:67
+msgid "Desktop visualizer"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:79
+msgid "Bars"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:80
+msgid "Wave"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:81
+msgid "Mirror"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:82
+msgid "Ring"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:83
+msgid "Halo"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:99
+msgid "Particles"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:110
+msgid "Desktop lyrics"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:112
+msgid "Fetching lyrics…"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:113
+msgid "No synced lyrics for this track"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:114
+msgid "LRCLIB unreachable"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:115
+msgid "Synced lyrics from LRCLIB"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:125
+msgid "Wallpaper effects"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:137
+msgid "Glow"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:138
+msgid "Blur"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:139
+msgid "Zoom"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:140
+msgid "Shake"
+msgstr ""
+
+#: quickshell/ancient/drawers/MusicFxPanel.qml:174
+msgid "Customize desktop"
+msgstr ""
+
+#: quickshell/ancient/drawers/SessionMenu.qml:21
+msgid "Lock"
+msgstr ""
+
+#: quickshell/ancient/drawers/SessionMenu.qml:22
+msgid "Suspend"
+msgstr ""
+
+#: quickshell/ancient/drawers/SessionMenu.qml:23
+msgid "Log out"
+msgstr ""
+
+#: quickshell/ancient/drawers/SessionMenu.qml:24
+msgid "Restart"
+msgstr ""
+
+#: quickshell/ancient/drawers/SessionMenu.qml:25
+msgid "Shut down"
+msgstr ""
+
+#: quickshell/ancient/drawers/SessionMenu.qml:52
+msgid "%1 — confirm on the dome"
+msgstr ""
+
+#: quickshell/ancient/drawers/SessionMenu.qml:52
+msgid "Session"
+msgstr ""
+
+#: quickshell/ancient/drawers/SessionMenu.qml:139
+msgid "CONFIRM"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradeConsole.qml:70
+msgid "Upgrade"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradeConsole.qml:70
+msgid "Upgrade · %1"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradeConsole.qml:111
+msgid "Hide"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:31
+msgid "Upgrades"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:56
+msgid "Check"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:56
+msgid "Checking"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:78
+msgid "MANAGER"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:87
+msgid "PACKAGES"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:150
+msgid "error"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:161
+msgid "Upgrade in progress"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:162
+msgid "Querying the managers…"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:163
+msgid "Not checked yet"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:164
+msgid "%1 package · checked at %2"
+msgid_plural "%1 packages · checked at %2"
+msgstr[0] ""
+msgstr[1] ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:165
+msgid "All up to date · checked at %1"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:172
+msgid "The last upgrade ended with failures · %1"
+msgstr ""
+
+#: quickshell/ancient/drawers/UpgradesPanel.qml:213
+msgid "UPGRADE"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:93 quickshell/ancient/splash.qml:31
+msgid "WORMHOLE ESTABLISHED"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:94
+msgid "MANUAL DIALING"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:95
+msgid "COMMAND ENCODED"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:96
+msgid "AWAITING ADDRESS"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:97
+msgid "INVALID ADDRESS"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:98 quickshell/ancient/splash.qml:35
+msgid "CHEVRON %1 ENCODED"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:191
+msgid "DIALING COMPUTER"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:197
+#: quickshell/ancient/splash/SplashWindow.qml:111
+msgid "EARTH"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:197
+#: quickshell/ancient/splash/SplashWindow.qml:111
+msgid "SGC · %1"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:236
+msgid "DESTINATION:"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:285
+msgid "STATUS:"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:289
+msgid "ACTIVE"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:289
+msgid "DIALING"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:289
+msgid "LOCKED"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:342
+msgid "OK"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:454
+msgid "CMD ▸"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:454
+msgid "DIAL ▸"
+msgstr ""
+
+#. i18n: input placeholder; ">" is the literal prefix that switches to command mode
+#: quickshell/ancient/launcher/Launcher.qml:479
+msgid "destination name…   ( > dials a command )"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:505
+msgid "DESTINATION LOG"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:506
+msgid "%1 address"
+msgid_plural "%1 addresses"
+msgstr[0] ""
+msgstr[1] ""
+
+#. i18n: shown when the query starts with ">"; %1 is the shell command, on its own line
+#: quickshell/ancient/launcher/Launcher.qml:594
+msgid ""
+"Enter dials:\n"
+"%1"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:594
+msgid "No address matches"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:613
+msgid "AUTHORIZATION CODE"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:621
+msgid "abort"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:621
+msgid "command"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:621
+msgid "destination"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:621
+msgid "dial"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:635
+msgid "USER: %1"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:636
+msgid "SYS:"
+msgstr ""
+
+#: quickshell/ancient/launcher/Launcher.qml:637
+msgid "NOMINAL"
+msgstr ""
+
+#: quickshell/ancient/scripts/upgrades.py:102
+#, python-brace-format
+msgid "{command}: timed out"
+msgstr ""
+
+#: quickshell/ancient/scripts/upgrades.py:105
+#, python-brace-format
+msgid "{command} exited with {code}"
+msgstr ""
+
+#: quickshell/ancient/scripts/upgrades.py:126
+msgid "checkupdates not found (pacman-contrib)"
+msgstr ""
+
+#: quickshell/ancient/scripts/upgrades.py:234
+msgid "lazy.nvim did not answer"
+msgstr ""
+
+#: quickshell/ancient/scripts/upgrades.py:247
+msgid "npm outdated failed"
+msgstr ""
+
+#: quickshell/ancient/scripts/upgrades.py:303
+msgid "Docker is stopped"
+msgstr ""
+
+#: quickshell/ancient/scripts/upgrades.py:519
+msgid "Upgrading packages"
+msgstr ""
+
+#: quickshell/ancient/scripts/upgrades.py:549
+#, python-brace-format
+msgid "end, exit code {code}"
+msgstr ""
+
+#: quickshell/ancient/scripts/upgrades.py:589
+msgid "nothing to upgrade"
+msgstr ""
+
+#: quickshell/ancient/scripts/upgrades.py:601
+msgid "the upgrade did not start"
+msgstr ""
+
+#: quickshell/ancient/services/BluetoothAudio.qml:25
+msgid "Music"
+msgstr ""
+
+#: quickshell/ancient/services/BluetoothAudio.qml:27
+msgid "Call"
+msgstr ""
+
+#: quickshell/ancient/services/BluetoothAudio.qml:66
+msgid "Auto"
+msgstr ""
+
+#: quickshell/ancient/services/Upgrades.qml:22
+msgid "Docker images"
+msgstr ""
+
+#. i18n: shown in the upgrade console while a check is still running
+#: quickshell/ancient/services/Upgrades.qml:74
+msgid "Waiting for the check to finish…"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:96
+msgid "Clear sky"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:96
+msgid "Mainly clear"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:96
+msgid "Overcast"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:96
+msgid "Partly cloudy"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:97
+msgid "Fog"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:97
+msgid "Rime fog"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:98
+msgid "Dense drizzle"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:98
+msgid "Drizzle"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:98
+msgid "Freezing drizzle"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:98
+msgid "Light drizzle"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:99
+msgid "Freezing rain"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:99
+msgid "Heavy rain"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:99
+msgid "Light rain"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:99
+msgid "Rain"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:100
+msgid "Heavy snow"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:100
+msgid "Light snow"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:100
+msgid "Snow"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:100
+msgid "Snow grains"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:101
+msgid "Heavy showers"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:101
+msgid "Rain showers"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:102
+msgid "Snow showers"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:103
+msgid "Thunderstorm"
+msgstr ""
+
+#: quickshell/ancient/services/Weather.qml:103
+msgid "Thunderstorm with hail"
+msgstr ""
+
+#. i18n: the 16 compass points, space-separated, from north clockwise
+#: quickshell/ancient/services/Weather.qml:119
+msgid "N NNE NE ENE E ESE SE SSE S SSW SW WSW W WNW NW NNW"
+msgstr ""
+
+#: quickshell/ancient/splash.qml:30
+msgid "DIALING FAILED"
+msgstr ""
+
+#: quickshell/ancient/splash.qml:32
+msgid "CHEVRON 7 LOCKED"
+msgstr ""
+
+#: quickshell/ancient/splash.qml:33
+msgid "INITIATING DIALING"
+msgstr ""
+
+#: quickshell/ancient/splash.qml:34
+msgid "CHEVRON 7 · WAITING"
+msgstr ""
+
+#: quickshell/ancient/splash.qml:41
+msgid "The desert world where it all began."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:42
+msgid "Teal'c's homeworld."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:43
+msgid "The sacred temple of the Jaffa."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:44
+msgid "Protected by Thor's Hammer."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:45
+msgid "Home of the Tollan."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:46
+msgid "Kelowna and its naquadria."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:47
+msgid "Heliopolis"
+msgstr ""
+
+#: quickshell/ancient/splash.qml:47
+msgid "The meeting hall of the four races."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:48
+msgid "Where Oma Desala taught ascension."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:49
+msgid "Beware of the meteor shower."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:50
+msgid "The nanites speed up aging: do not linger."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:51
+msgid "Sokar's prison moon."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:52
+msgid "Homeworld of the Unas and cradle of the Goa'uld."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:53
+msgid "Atlantis"
+msgstr ""
+
+#: quickshell/ancient/splash.qml:53
+msgid "The city of the Ancients, in the Pegasus galaxy."
+msgstr ""
+
+#: quickshell/ancient/splash.qml:65
+msgid "Stargate Command"
+msgstr ""
+
+#: quickshell/ancient/splash.qml:67
+msgid "Wormhole established"
+msgstr ""
+
+#: quickshell/ancient/splash.qml:68
+msgid "Destination: %1 · %2"
+msgstr ""
+
+#: quickshell/ancient/splash/SplashWindow.qml:280
+msgid "DESTINATION: %1"
+msgstr ""
+
+#: quickshell/ancient/splash/SplashWindow.qml:281
+msgid "LOADING THE SHELL"
+msgstr ""
+
+#: quickshell/ancient/splash/SplashWindow.qml:281
+msgid "SHELL LOADED"
+msgstr ""
+
+#: quickshell/ancient/wallpaper/WallpaperPicker.qml:87
+msgid "VISUAL ADDRESS"
+msgstr ""
+
+#: quickshell/ancient/wallpaper/WallpaperPicker.qml:103
+msgid "apply"
+msgstr ""
+
+#: quickshell/ancient/wallpaper/WallpaperPicker.qml:103
+msgid "close"
+msgstr ""
+
+#: quickshell/ancient/wallpaper/WallpaperPicker.qml:103
+msgid "navigate"
+msgstr ""
+
+#: quickshell/ancient/wallpaper/WallpaperPicker.qml:103
+msgid "random"
+msgstr ""
+
+#. i18n: apparent ("feels like") temperature, %1 is the value
+#: quickshell/ancient/weather/WeatherWidget.qml:139
+msgid "Feels like %1"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:146
+msgid "Fetching…"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:146
+msgid "Offline"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:207
+msgctxt "hourly table"
+msgid "Temp"
+msgstr ""
+
+#. i18n: column heads of the hourly table, keep them short; "Feels" is the apparent temperature
+#: quickshell/ancient/weather/WeatherWidget.qml:207
+msgctxt "hourly table"
+msgid "Time"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:208
+msgctxt "hourly table"
+msgid "Feels"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:208
+msgctxt "hourly table"
+msgid "Rain"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:208
+msgctxt "hourly table"
+msgid "Wind"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:274
+msgid "Offline · data from %1"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:291
+msgid "City"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:339
+msgid "Type the city and press Enter"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:354
+msgid "No city with that name"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:354
+msgid "No connection to Open-Meteo"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:354
+msgid "Searching…"
+msgstr ""
+
+#: quickshell/ancient/weather/WeatherWidget.qml:407
+msgid "Monitor"
+msgstr ""

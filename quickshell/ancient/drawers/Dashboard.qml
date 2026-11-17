@@ -54,7 +54,8 @@ Drawer {
                 size: 17
                 color: Theme.amber
                 font.letterSpacing: 1.2
-                text: Config.locale.toString(clock.date, "dddd, d 'de' MMMM").toUpperCase()
+                // i18n: Qt date format (QLocale::toString): weekday, month, day
+                text: Config.locale.toString(clock.date, I18n.tr("dddd, MMMM d")).toUpperCase()
             }
             Calendar {
                 width: parent.width
@@ -72,13 +73,14 @@ Drawer {
             anchors.verticalCenter: parent.verticalCenter
             spacing: 18
 
-            SectionTitle { width: parent.width; text: "Sistema"; color: Theme.cyan }
+            SectionTitle { width: parent.width; text: I18n.tr("System"); color: Theme.cyan }
             Repeater {
                 model: [
-                    ["schedule", "Ativo há", SysStats.uptime],
-                    ["memory", "Memória", SysStats.memUsedGb.toFixed(1) + " / " + SysStats.memTotalGb.toFixed(0) + " GB"],
-                    ["hard_drive", "Disco /", SysStats.diskLabel],
-                    ["person", "Usuário", Quickshell.env("USER")]
+                    // i18n: title of the uptime (how long since the system started)
+                    ["schedule", I18n.tr("Up"), SysStats.uptime],
+                    ["memory", I18n.tr("Memory"), SysStats.memUsedGb.toFixed(1) + " / " + SysStats.memTotalGb.toFixed(0) + " GB"],
+                    ["hard_drive", I18n.tr("Disk %1", Config.tilde(Config.diskPath)), SysStats.diskLabel],
+                    ["person", I18n.tr("User"), Quickshell.env("USER")]
                 ]
                 Row {
                     required property var modelData
@@ -106,14 +108,14 @@ Drawer {
             columns: 2
             spacing: 18
             RingGauge { width: 132; height: 132; thickness: 7; value: SysStats.cpu; label: "CPU" }
-            RingGauge { width: 132; height: 132; thickness: 7; value: SysStats.mem; label: "MEM" }
+            RingGauge { width: 132; height: 132; thickness: 7; value: SysStats.mem; label: I18n.tr("MEM") }
             RingGauge {
                 width: 132; height: 132; thickness: 7
                 value: Math.min(1, SysStats.temp / 100)
                 valueText: Math.round(SysStats.temp) + "°"
-                label: "TEMP"
+                label: I18n.tr("TEMP")
             }
-            RingGauge { width: 132; height: 132; thickness: 7; value: SysStats.disk; label: "DISCO" }
+            RingGauge { width: 132; height: 132; thickness: 7; value: SysStats.disk; label: I18n.tr("DISK") }
         }
     }
 }

@@ -34,22 +34,23 @@ Column {
         SectionTitle {
             width: parent.width - manage.width - 10
             color: Theme.cyan
-            text: "Bluetooth" + (root.devices.length > 0 ? " · " + root.devices.length : "")
+            text: root.devices.length > 0 ? I18n.tr("Bluetooth · %1", root.devices.length) : I18n.tr("Bluetooth")
         }
         MouseArea {
             id: manage
+            visible: Config.bluetoothSettingsCommand !== ""
             anchors.right: parent.right
             width: manageLabel.implicitWidth + 4
             height: 18
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
-            onClicked: Hypr.exec("blueman-manager")
+            onClicked: Hypr.exec(Config.bluetoothSettingsCommand)
             Label {
                 id: manageLabel
                 anchors.centerIn: parent
                 size: 13
                 color: parent.containsMouse ? Theme.cyan : Theme.textDim
-                text: "Gerenciar"
+                text: I18n.tr("Manage")
             }
         }
     }
@@ -60,9 +61,9 @@ Column {
         horizontalAlignment: Text.AlignHCenter
         size: 13
         color: Theme.textMute
-        text: !root.adapter ? "Sem adaptador Bluetooth"
-            : !root.adapter.enabled ? "Bluetooth desligado"
-            : "Nenhum dispositivo conectado"
+        text: !root.adapter ? I18n.tr("No Bluetooth adapter")
+            : !root.adapter.enabled ? I18n.tr("Bluetooth off")
+            : I18n.tr("No connected devices")
     }
 
     Repeater {

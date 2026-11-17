@@ -3,17 +3,25 @@
 
   upgrades.py check [ID...]   One JSON line per package manager, as each check ends:
                                 {"id": "node", "count": 3}
-                                {"id": "docker", "note": "Docker parado"}   (not checked)
+                                {"id": "docker", "note": "Docker is stopped"}   (not checked)
                                 {"id": "uv", "error": "..."}                (check failed)
                                 {"id": "cargo", "missing": true}            (not installed)
   upgrades.py run ID...       Upgrades those managers with topgrade, in a detached worker
                               that outlives the shell, and follows its output. The output
-                              is appended to ~/upgrade.log; the exit code is topgrade's.
+                              is appended to the log; the exit code is topgrade's.
   upgrades.py follow          Follows a run that is still going (exit 100 if there is none).
 
 Each count is what topgrade's step would change, so a run brings it to zero.
-ANCIENT_NODE_BIN names the bin directory of the Node whose global npm packages count
-(the shell passes `upgradesNodeBin` from its config); without it, the npm in PATH.
+
+The shell passes its config through the environment ("~" is expanded):
+  ANCIENT_NODE_BIN     bin directory of the Node whose global npm packages count
+                       (`upgradesNodeBin`); unset or empty: the npm in PATH
+  ANCIENT_UPGRADE_LOG  file the runs' output is appended to (`upgradesLog`),
+                       default ~/upgrade.log
+  ANCIENT_EXTRA_PATH   directories put before PATH, ":"-separated (`upgradesPath`),
+                       default ~/.cargo/bin:~/.local/bin
+Tools found in their own default places honour their own overrides: ZSH,
+VSCODE_EXTENSIONS and CLAUDE_CONFIG_DIR.
 """
 
 import concurrent.futures
@@ -33,16 +41,20 @@ import urllib.request
 from datetime import datetime
 from pathlib import Path
 
+from i18n import _  # this directory's i18n.py
+
 HOME = Path.home()
 NODE_BIN = os.path.expanduser(os.environ.get("ANCIENT_NODE_BIN", ""))
-LOG = HOME / "upgrade.log"
+LOG = Path(os.path.expanduser(os.environ.get("ANCIENT_UPGRADE_LOG") or "~/upgrade.log"))
+EXTRA_PATH = [os.path.expanduser(d) for d in
+              os.environ.get("ANCIENT_EXTRA_PATH", "~/.cargo/bin:~/.local/bin").split(os.pathsep) if d]
 STATE = Path(os.environ.get("XDG_CACHE_HOME") or HOME / ".cache") / "ancient-shell" / "upgrade.json"
 LOCK = STATE.with_suffix(".lock")   # held by the worker for as long as it lives
 NOTHING_TO_FOLLOW = 100
 
-# The shell runs with the session's PATH, which has neither nvm nor cargo nor ~/.local/bin
+# The shell runs with the session's PATH, which often lacks nvm, cargo and ~/.local/bin
 os.environ["PATH"] = os.pathsep.join(
-    ([NODE_BIN] if NODE_BIN else []) + [str(HOME / ".cargo/bin"), str(HOME / ".local/bin"), os.environ.get("PATH", "")])
+    ([NODE_BIN] if NODE_BIN else []) + EXTRA_PATH + [os.environ.get("PATH", "")])
 os.environ.setdefault("ZSH", str(HOME / ".oh-my-zsh"))
 
 # Checks parse English output
@@ -87,10 +99,11 @@ def sh(*cmd, ok=(0,), timeout=180):
     except FileNotFoundError:
         raise Missing(cmd[0])
     except subprocess.TimeoutExpired:
-        raise RuntimeError(f"{Path(str(cmd[0])).name}: tempo esgotado")
+        raise RuntimeError(_("{command}: timed out").format(command=Path(str(cmd[0])).name))
     if ok is not None and p.returncode not in ok:
         lines = (p.stderr.strip() or p.stdout.strip()).splitlines()
-        raise RuntimeError(lines[-1] if lines else f"{Path(str(cmd[0])).name} saiu com {p.returncode}")
+        raise RuntimeError(lines[-1] if lines else _("{command} exited with {code}").format(
+            command=Path(str(cmd[0])).name, code=p.returncode))
     return p
 
 
@@ -110,7 +123,7 @@ def check_system():
     """Repo packages from a scratch copy of the sync databases (no root, no lock), AUR from its RPC."""
     need("yay")
     if not shutil.which("checkupdates"):
-        raise RuntimeError("checkupdates não encontrado (pacman-contrib)")
+        raise RuntimeError(_("checkupdates not found (pacman-contrib)"))
     line = re.compile(r"^\S+ \S+ -> \S+")
     repo = sh("checkupdates", ok=(0, 2)).stdout  # 2: nothing to update
     aur = sh("yay", "-Qua", ok=(0, 1))           # 1: nothing to update, or a failure
@@ -148,7 +161,8 @@ def check_cargo():
 def check_vscode():
     """Installed extensions against the Marketplace's latest version for this VS Code and platform."""
     need("code")
-    listing = HOME / ".vscode/extensions/extensions.json"
+    listing = Path(os.path.expanduser(os.environ.get("VSCODE_EXTENSIONS") or "~/.vscode/extensions")) \
+        / "extensions.json"
     if not listing.exists():
         return 0
     installed = [e for e in json.loads(listing.read_text()) if not (e.get("metadata") or {}).get("pinned")]
@@ -217,7 +231,7 @@ def check_nvim():
     out = sh("nvim", "--headless", "-c", "lua " + LAZY_CHECK.replace("\n", " "), ok=None, timeout=300).stdout
     m = re.search(r"^ANCIENT-LAZY (.*)$", out, re.M)
     if not m:
-        raise RuntimeError("lazy.nvim não respondeu")
+        raise RuntimeError(_("lazy.nvim did not answer"))
     res = json.loads(m.group(1))
     if "error" in res:
         raise RuntimeError(res["error"].splitlines()[0])
@@ -230,7 +244,7 @@ def check_node():
     out = sh(npm, "outdated", "-g", "--json", ok=(0, 1)).stdout  # 1: something is outdated
     data = json.loads(out or "{}")
     if "error" in data:
-        raise RuntimeError(data["error"].get("summary", "npm outdated falhou"))
+        raise RuntimeError(data["error"].get("summary") or _("npm outdated failed"))
     return sum(1 for v in data.values() if v.get("current") != v.get("wanted"))
 
 
@@ -286,7 +300,7 @@ def check_docker():
     # Do not wake a socket-activated daemon just to look
     if shutil.which("systemctl"):
         if sh("systemctl", "is-active", "--quiet", "docker.service", ok=None).returncode != 0:
-            raise Note("Docker parado")
+            raise Note(_("Docker is stopped"))
     out = sh("docker", "image", "ls", "--format", "{{.Repository}}:{{.Tag}}", timeout=30).stdout
     refs = sorted({r for r in out.split() if "<none>" not in r})
     if not refs:
@@ -366,12 +380,10 @@ def claude_plugin_updates(claude):
 
 def check_claude():
     """Claude Code against its release channel, plus its plugins."""
-    claude = HOME / ".local/bin/claude"
-    if not claude.exists():
-        claude = need("claude")
+    claude = need("claude")  # the native installer's ~/.local/bin is in EXTRA_PATH by default
     installed = sh(claude, "--version", timeout=30).stdout.split()[0]
     channel = "latest"
-    settings = HOME / ".claude/settings.json"
+    settings = Path(os.path.expanduser(os.environ.get("CLAUDE_CONFIG_DIR") or "~/.claude")) / "settings.json"
     if settings.exists():
         try:
             channel = json.loads(settings.read_text()).get("autoUpdatesChannel") or channel
@@ -504,12 +516,12 @@ def cmd_worker(ids):
     # No shutdown or suspend while packages are being replaced
     if shutil.which("systemd-inhibit"):
         cmd = ["systemd-inhibit", "--what=shutdown:sleep", "--mode=block",
-               "--who=Ancient Shell", "--why=Atualizando pacotes", *cmd]
+               "--who=Ancient Shell", "--why=" + _("Upgrading packages"), *cmd]
     # After a major update, topgrade asks on stdin to confirm its breaking changes
     env = dict(os.environ, TOPGRADE_SKIP_BRKC_NOTIFY="true")
 
     with open(LOG, "ab", buffering=0) as log:
-        state = {"pid": os.getpid(), "offset": log.tell(), "ids": ids}
+        state = {"pid": os.getpid(), "offset": log.tell(), "ids": ids, "log": str(LOG)}
         write_state(state)
 
         def put(text):
@@ -534,7 +546,8 @@ def cmd_worker(ids):
             for raw in iter(proc.stdout.readline, b""):
                 put(clean(raw))
             code = proc.wait()
-        put(f"━━━━ {stamp()} · fim, código {code} ━━━━\n\n".encode())
+        footer = _("end, exit code {code}").format(code=code)
+        put(f"━━━━ {stamp()} · {footer} ━━━━\n\n".encode())
     write_state(dict(state, exit=code))
     return code
 
@@ -545,7 +558,8 @@ def follow(state, child=None):
         return child.poll() is None if child else run_going()
 
     out = sys.stdout.buffer
-    with open(LOG, "rb") as log:
+    # The log the run writes to, which may not be the one configured now
+    with open(state.get("log") or LOG, "rb") as log:
         log.seek(state["offset"])
         while True:
             chunk = log.read(65536)
@@ -572,8 +586,9 @@ def cmd_run(ids):
         return follow(state)  # one run at a time: show the one going on
     ids = [i for i in dict.fromkeys(ids) if i in STEPS]
     if not ids:
-        print("nada para atualizar", file=sys.stderr)
+        print(_("nothing to upgrade"), file=sys.stderr)
         return 2
+    LOG.parent.mkdir(parents=True, exist_ok=True)
     LOG.touch()
     child = subprocess.Popen([sys.executable, os.path.abspath(__file__), "worker", *ids],
                              stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
@@ -583,7 +598,7 @@ def cmd_run(ids):
         if child.poll() is not None:
             if state := current_run():  # it lost the lock to a run started at the same moment
                 return follow(state)
-            print("o upgrade não começou", file=sys.stderr)
+            print(_("the upgrade did not start"), file=sys.stderr)
             return 1
         time.sleep(0.05)
     return follow(state, child)
