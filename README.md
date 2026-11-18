@@ -197,7 +197,8 @@ Edit `~/.config/ancient-shell/config.json` (or `$XDG_CONFIG_HOME/ancient-shell/c
   "gateClose": true,
   "upgradesNodeBin": "",
   "upgradesLog": "~/upgrade.log",
-  "upgradesPath": ["~/.cargo/bin", "~/.local/bin"]
+  "upgradesPath": ["~/.cargo/bin", "~/.local/bin"],
+  "upgradesDisabled": []
 }
 ```
 
@@ -214,6 +215,7 @@ Edit `~/.config/ancient-shell/config.json` (or `$XDG_CONFIG_HOME/ancient-shell/c
 | `upgradesNodeBin` | Node `bin` folder whose global npm packages are included in the updates (for example, `~/.nvm/versions/node/v22.14.0/bin`); empty uses the `npm` on the PATH. |
 | `upgradesLog` | File the upgrade output is appended to. |
 | `upgradesPath` | Folders prepended to the PATH for the checks and the upgrade, which run with the session PATH (usually without the user's folders). |
+| `upgradesDisabled` | Managers left out of the table, the checks, and the upgrade, by id: `system`, `omz`, `cargo`, `vscode`, `nvim`, `node`, `docker`, `composer`, `github`, `claude`, `uv` (for example, `["docker"]`). Takes effect on save. |
 
 The checks find the tools in their default locations and honor each one's variables: `ZSH` (Oh My Zsh), `VSCODE_EXTENSIONS`, and `CLAUDE_CONFIG_DIR`.
 

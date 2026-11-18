@@ -197,7 +197,8 @@ Edite `~/.config/ancient-shell/config.json` (ou `$XDG_CONFIG_HOME/ancient-shell/
   "gateClose": true,
   "upgradesNodeBin": "",
   "upgradesLog": "~/upgrade.log",
-  "upgradesPath": ["~/.cargo/bin", "~/.local/bin"]
+  "upgradesPath": ["~/.cargo/bin", "~/.local/bin"],
+  "upgradesDisabled": []
 }
 ```
 
@@ -214,6 +215,7 @@ Edite `~/.config/ancient-shell/config.json` (ou `$XDG_CONFIG_HOME/ancient-shell/
 | `upgradesNodeBin` | Pasta `bin` do Node cujos pacotes globais do npm entram nas atualizações (por exemplo, `~/.nvm/versions/node/v22.14.0/bin`); vazio usa o `npm` do PATH. |
 | `upgradesLog` | Arquivo onde a saída dos upgrades é acrescentada. |
 | `upgradesPath` | Pastas colocadas antes do PATH nas verificações e no upgrade, que rodam com o PATH da sessão (normalmente sem as pastas do usuário). |
+| `upgradesDisabled` | Gerenciadores que saem da tabela, das verificações e do upgrade, pelo id: `system`, `omz`, `cargo`, `vscode`, `nvim`, `node`, `docker`, `composer`, `github`, `claude`, `uv` (por exemplo, `["docker"]`). Vale ao salvar. |
 
 As verificações acham as ferramentas nos lugares padrão delas e respeitam as variáveis de cada uma: `ZSH` (Oh My Zsh), `VSCODE_EXTENSIONS` e `CLAUDE_CONFIG_DIR`.
 

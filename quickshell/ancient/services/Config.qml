@@ -36,6 +36,10 @@ Singleton {
         const v = adapter.upgradesPath;
         return (typeof v === "string" ? [v] : Array.from(v ?? [])).map(p => path(p));
     }
+    readonly property var upgradesDisabled: {
+        const v = adapter.upgradesDisabled;
+        return typeof v === "string" ? [v] : Array.from(v ?? []);
+    }
     readonly property string diskPath: path(adapter.diskPath)
     property alias clock24h: adapter.clock24h
     property alias workspaces: adapter.workspaces
@@ -94,6 +98,9 @@ Singleton {
             // Directories added to PATH for the upgrade checks and runs: the
             // session's PATH often lacks the per-user ones
             property var upgradesPath: ["~/.cargo/bin", "~/.local/bin"]
+            // Managers (ids in services/Upgrades.qml) left out of the table, the checks
+            // and the upgrades, for example ["docker"]
+            property var upgradesDisabled: []
         }
     }
 }

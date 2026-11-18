@@ -11,8 +11,8 @@ import Quickshell.Io
 Singleton {
     id: root
 
-    // The rows of the table, in order; `id` is the name scripts/upgrades.py knows
-    readonly property var managers: [
+    // Every manager, in order; `id` is the name scripts/upgrades.py knows
+    readonly property var allManagers: [
         { id: "system", name: I18n.tr("System") },
         { id: "omz", name: "Oh My Zsh" },
         { id: "cargo", name: "Rust" },
@@ -25,6 +25,8 @@ Singleton {
         { id: "claude", name: "Claude Code" },
         { id: "uv", name: "Python UV" }
     ]
+    // The rows of the table: the managers not in Config.upgradesDisabled
+    readonly property var managers: allManagers.filter(m => !Config.upgradesDisabled.includes(m.id))
 
     // id → { count } | { note } (not checked, why) | { error } | { missing }
     property var results: ({})
@@ -56,8 +58,14 @@ Singleton {
     function check() {
         if (checking || active) return;
         fresh = {};
+        if (managers.length === 0) {
+            // upgrades.py checks every manager when given none
+            lastCheck = new Date();
+            return;
+        }
         _checkCode = -1;
         checking = true;
+        checker.command = ["python3", script, "check", ...managers.map(m => m.id)];
         checker.running = true;
     }
 
@@ -111,7 +119,6 @@ Singleton {
 
     Process {
         id: checker
-        command: ["python3", root.script, "check"]
         environment: root.env
         stdout: SplitParser {
             onRead: data => {
@@ -146,7 +153,7 @@ Singleton {
                 const head = data.match(/^━━━━ .* · upgrade: (.*) ━━━━$/);
                 if (head) {
                     const ids = head[1].split(" ");
-                    root.runNames = root.managers.filter(m => ids.includes(m.id)).map(m => m.name);
+                    root.runNames = root.allManagers.filter(m => ids.includes(m.id)).map(m => m.name);
                 }
                 root.running = true;
                 lines.append({ line: data });
